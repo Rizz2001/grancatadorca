@@ -3,27 +3,24 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>El Catador | Enlaces Informativo</title>
+    <title>El Catador | Barinas</title>
     
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
-        /* === 1. VARIABLES Y RESETEO === */
+        /* === 1. VARIABLES Y ESTILO BASE === */
         :root {
             --color-fondo: #0012E4;
             --color-texto: #ffffff;
-            --color-texto-mutado: #a1a1aa;
             --azul-rey: #0A028F;
             --dorado: #F5A700;
-            --plateado: #e2e8f0;
-            --glass: rgba(15, 15, 17, 0.75);
+            --glass: rgba(15, 15, 17, 0.85);
             --glass-border: rgba(255, 255, 255, 0.1);
-            --borde-radio: 12px;
-            --shadow-premium: 0 10px 30px rgba(0, 0, 0, 0.5);
+            --borde-radio: 15px;
         }
 
-        * { box-sizing: border-box; margin: 0; padding: 0; scroll-behavior: smooth; }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
 
         body {
             font-family: 'Poppins', sans-serif;
@@ -33,8 +30,7 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            padding: 20px 20px 100px 20px;
-            position: relative;
+            padding: 40px 20px;
             overflow-x: hidden;
         }
 
@@ -45,467 +41,290 @@
             background-image: url('fondo.webp');
             background-size: cover;
             background-position: center;
-            filter: blur(20px) brightness(0.2);
+            filter: blur(15px) brightness(0.3);
             z-index: -1;
         }
 
-        /* === 2. DASHBOARD PREMIUM (NUEVO) === */
-        .dashboard {
+        main { width: 100%; max-width: 450px; }
+
+        /* === 2. CABECERA ANIMADA === */
+        .header-main { text-align: center; margin-bottom: 30px; animation: fadeInDown 0.8s ease; }
+        .logo-img { width: 130px; border-radius: 50%; border: 2px solid var(--dorado); box-shadow: 0 0 20px rgba(245, 167, 0, 0.3); }
+
+        /* === 3. BOTONES DE SEDES (MENÚ PRINCIPAL) === */
+        .sede-selector { margin-bottom: 20px; }
+        
+        .btn-sede {
             width: 100%;
-            max-width: 420px;
+            padding: 22px;
+            margin-bottom: 15px;
             background: var(--glass);
-            backdrop-filter: blur(15px);
             border: 1px solid var(--glass-border);
             border-radius: var(--borde-radio);
-            padding: 20px;
-            margin-bottom: 24px;
-            box-shadow: var(--shadow-premium);
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 15px;
-            animation: slideDown 0.8s ease-out;
-        }
-
-        .dash-item { display: flex; flex-direction: column; gap: 5px; }
-        .dash-label { font-size: 10px; text-transform: uppercase; letter-spacing: 1px; color: var(--color-texto-mutado); }
-        .dash-value { font-size: 16px; font-weight: 700; color: var(--dorado); }
-        .status-dot { width: 8px; height: 8px; border-radius: 50%; display: inline-block; margin-right: 5px; animation: pulse 2s infinite; }
-
-        /* === 3. BUSCADOR Y RESULTADOS === */
-        .search-section { width: 100%; max-width: 420px; margin-bottom: 24px; }
-        .search-container {
-            background: var(--glass);
-            border-radius: var(--borde-radio);
-            padding: 15px;
-            border: 1px solid var(--glass-border);
-        }
-
-        .input-group { position: relative; width: 100%; }
-        #inputBusqueda {
-            width: 100%;
-            padding: 14px 45px 14px 15px;
-            background: rgba(255,255,255,0.05);
-            border: 1px solid var(--glass-border);
-            border-radius: 8px;
             color: white;
-            font-family: inherit;
-            outline: none;
-            transition: 0.3s;
-        }
-        #inputBusqueda:focus { border-color: var(--dorado); box-shadow: 0 0 10px rgba(245, 167, 0, 0.2); }
-        .search-icon { position: absolute; right: 15px; top: 50%; transform: translateY(-50%); color: var(--dorado); }
-
-        .cat-scroll { display: flex; gap: 10px; overflow-x: auto; padding: 10px 0; scrollbar-width: none; }
-        .cat-scroll::-webkit-scrollbar { display: none; }
-        .cat-pill {
-            padding: 6px 15px;
-            background: rgba(255,255,255,0.08);
-            border: 1px solid var(--glass-border);
-            border-radius: 20px;
-            font-size: 11px;
-            white-space: nowrap;
-            cursor: pointer;
-            transition: 0.3s;
-        }
-        .cat-pill.active { background: var(--dorado); color: black; font-weight: 600; }
-
-        .results-container { max-height: 400px; overflow-y: auto; margin-top: 10px; padding-right: 5px; }
-        .prod-card {
-            background: rgba(0,0,0,0.3);
-            border-radius: 10px;
-            padding: 12px;
-            margin-bottom: 10px;
+            font-size: 14px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            border-left: 3px solid var(--dorado);
-            animation: fadeIn 0.4s ease;
-        }
-        .btn-add-cart {
-            background: var(--dorado);
-            color: #000;
-            border: none;
-            padding: 8px 12px;
-            border-radius: 6px;
-            font-weight: 700;
-            font-size: 12px;
             cursor: pointer;
+            transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            backdrop-filter: blur(10px);
         }
 
-        /* === 4. CARRITO MODAL (LÓGICA AVANZADA) === */
-        #cart-trigger {
-            position: fixed; bottom: 25px; right: 25px;
-            width: 65px; height: 65px;
-            background: #25D366;
-            border-radius: 50%;
+        .btn-sede:hover { transform: scale(1.02); border-color: var(--dorado); }
+        .btn-sede.active { background: var(--azul-rey); border-color: var(--dorado); }
+        
+        /* Contenedores Desplegables */
+        .sede-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease-out, opacity 0.5s;
+            opacity: 0;
+            background: rgba(0,0,0,0.2);
+            border-radius: 0 0 15px 15px;
+            margin-top: -15px;
+            margin-bottom: 15px;
+        }
+
+        .sede-content.open { max-height: 1500px; opacity: 1; padding: 20px; border: 1px solid var(--glass-border); border-top: none; }
+
+        /* === 4. DASHBOARD E INVENTARIO (SOLO PARA GRAN CATADOR) === */
+        .premium-box {
+            background: var(--glass);
+            border-radius: var(--borde-radio);
+            padding: 15px;
+            margin-top: 10px;
+            border: 1px solid rgba(245, 167, 0, 0.3);
+        }
+
+        .search-bar-wrapper { position: relative; margin: 15px 0; }
+        #inputBusqueda {
+            width: 100%; padding: 15px; border-radius: 10px; border: none;
+            background: rgba(255,255,255,0.1); color: white; padding-left: 45px;
+        }
+        .search-icon { position: absolute; left: 15px; top: 50%; transform: translateY(-50%); color: var(--dorado); }
+
+        .product-list { max-height: 400px; overflow-y: auto; margin-top: 15px; }
+        .item-card {
+            background: rgba(255,255,255,0.05);
+            padding: 12px;
+            border-radius: 10px;
+            margin-bottom: 8px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-left: 4px solid var(--dorado);
+        }
+
+        /* === 5. CARRITO FLOTANTE === */
+        #cart-floating {
+            position: fixed; bottom: 30px; right: 20px;
+            width: 60px; height: 60px;
+            background: #25D366; border-radius: 50%;
             display: none; align-items: center; justify-content: center;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.4);
-            cursor: pointer; z-index: 1000; border: 2px solid white;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.4); z-index: 999;
         }
-        .cart-badge { position: absolute; top: 0; right: 0; background: #ff0000; color: white; width: 24px; height: 24px; border-radius: 50%; font-size: 12px; display: flex; align-items: center; justify-content: center; border: 2px solid white; }
+        .badge { position: absolute; top: 0; right: 0; background: red; color: white; border-radius: 50%; padding: 2px 7px; font-size: 11px; }
 
-        .modal-cart {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.9);
-            z-index: 2000;
-            display: none; flex-direction: column;
-            padding: 30px 20px;
+        /* === 6. ESTILOS DE INFO GENERAL === */
+        .info-row { display: flex; align-items: center; gap: 10px; margin-bottom: 12px; font-size: 13px; color: #ccc; text-decoration: none; }
+        .info-row i { color: var(--dorado); width: 20px; }
+        .btn-action {
+            display: block; width: 100%; padding: 12px; background: rgba(255,255,255,0.1);
+            text-align: center; border-radius: 8px; color: white; text-decoration: none;
+            margin-top: 10px; font-weight: 600; font-size: 12px;
         }
-        .cart-content { width: 100%; max-width: 450px; margin: 0 auto; display: flex; flex-direction: column; height: 100%; }
-        .cart-items { flex-grow: 1; overflow-y: auto; padding: 20px 0; }
-        .cart-item { display: flex; justify-content: space-between; align-items: center; padding: 15px 0; border-bottom: 1px solid rgba(255,255,255,0.1); }
-        .qty-controls { display: flex; align-items: center; gap: 15px; background: rgba(255,255,255,0.1); padding: 5px 10px; border-radius: 5px; }
-        .qty-btn { cursor: pointer; color: var(--dorado); font-weight: bold; }
-        .cart-footer { background: var(--glass); padding: 20px; border-radius: 15px; border: 1px solid var(--glass-border); }
 
-        /* === 5. BOTONES ORIGINALES (LINKTREE) === */
-        main { width: 100%; max-width: 420px; display: flex; flex-direction: column; gap: 16px; }
-        .btn-linktree {
-            width: 100%; background: var(--glass); padding: 18px; border-radius: var(--borde-radio);
-            border: 1px solid var(--glass-border); color: white; display: flex; justify-content: space-between;
-            align-items: center; cursor: pointer; text-decoration: none; font-weight: 600;
-            background-image: linear-gradient(var(--glass), var(--glass)), 
-                              linear-gradient(135deg, var(--azul-rey) 0%, var(--dorado) 100%);
-            background-origin: border-box; background-clip: padding-box, border-box;
-            box-shadow: var(--shadow-premium);
-        }
-        .info-wrapper { max-height: 0; overflow: hidden; transition: 0.5s ease-out; opacity: 0; width: 90%; margin: 0 auto; }
-        .info-wrapper.open { max-height: 500px; opacity: 1; padding: 10px 0; }
-
-        /* === 6. ANIMACIONES === */
-        @keyframes pulse { 0% { opacity: 1; } 50% { opacity: 0.4; } 100% { opacity: 1; } }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-        @keyframes slideDown { from { opacity: 0; transform: translateY(-30px); } to { opacity: 1; transform: translateY(0); } }
-
-        /* === 7. FORMULARIO QUEJAS === */
-        .quejas-box { background: rgba(234, 67, 53, 0.1); border: 1px solid rgba(234, 67, 53, 0.3); padding: 15px; border-radius: 10px; margin-top: 10px; }
-        #textQueja { width: 100%; background: rgba(0,0,0,0.2); border: 1px solid rgba(255,255,255,0.1); color: white; padding: 10px; border-radius: 5px; resize: none; }
+        /* Animaciones */
+        @keyframes fadeInDown { from { opacity: 0; transform: translateY(-20px); } to { opacity: 1; transform: translateY(0); } }
     </style>
 </head>
 <body>
 
-    <div id="modalCart" class="modal-cart">
-        <div class="cart-content">
-            <div style="display: flex; justify-content: space-between; align-items: center;">
-                <h2 style="color:var(--dorado)">Tu Pedido</h2>
-                <i class="fa-solid fa-xmark" onclick="closeCart()" style="font-size: 24px; cursor: pointer;"></i>
-            </div>
-            <div id="cartItems" class="cart-items">
-                </div>
-            <div class="cart-footer">
-                <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
-                    <span>Total USD:</span>
-                    <b id="totalUSD" style="color:var(--dorado)">$0.00</b>
-                </div>
-                <div style="display: flex; justify-content: space-between; margin-bottom: 20px; font-size: 14px; color: var(--color-texto-mutado);">
-                    <span>Total Bs:</span>
-                    <span id="totalBS">0.00 Bs</span>
-                </div>
-                <button onclick="checkout()" style="width: 100%; background: #25D366; color: white; border: none; padding: 15px; border-radius: 10px; font-weight: 700; cursor: pointer;">
-                    <i class="fa-brands fa-whatsapp"></i> ENVIAR PEDIDO
-                </button>
-            </div>
-        </div>
-    </div>
-
-    <div id="cart-trigger" onclick="openCart()">
-        <i class="fa-solid fa-cart-shopping" style="color: white; font-size: 24px;"></i>
-        <div id="cart-count" class="cart-badge">0</div>
-    </div>
-
     <main>
-        <header style="text-align: center; margin-bottom: 10px;">
-            <img src="logo.png" alt="Logo" class="logo" style="width: 140px; border-radius: 50%; margin-bottom: 10px;">
-            <h1>El Catador</h1>
-            <p class="dash-label"><i class="fa-solid fa-location-dot"></i> Barinas, Venezuela</p>
+        <header class="header-main">
+            <img src="logo.png" alt="Gran Catador" class="logo-img">
+            <h1 style="margin-top:15px; letter-spacing: 2px;">EL CATADOR</h1>
+            <p style="font-size: 10px; color: var(--dorado); font-weight: 700;">BARINAS, VENEZUELA</p>
         </header>
 
-        <section class="dashboard">
-            <div class="dash-item">
-                <span class="dash-label">Tasa Oficial BCV</span>
-                <span class="dash-value" id="tasaBCV">Cargando...</span>
-            </div>
-            <div class="dash-item" style="text-align: right;">
-                <span class="dash-label">Estado de Sede</span>
-                <span class="dash-value" id="statusSede">
-                    <span class="status-dot" style="background: #25D366;"></span>ABIERTO
-                </span>
-            </div>
-            <div class="dash-item" style="grid-column: span 2; border-top: 1px solid var(--glass-border); padding-top: 10px; text-align: center;">
-                <span class="dash-label" id="fechaReloj">Cargando hora local...</span>
-            </div>
-        </section>
-
-        <section class="search-section">
-            <div class="search-container">
-                <div class="input-group">
-                    <input type="text" id="inputBusqueda" placeholder="Busca licores, agua, víveres...">
-                    <i class="fa-solid fa-magnifying-glass search-icon"></i>
-                </div>
-                <div id="sugerencia" style="font-size: 11px; color: var(--dorado); margin-top: 8px; font-style: italic; display: none;"></div>
-                <div class="cat-scroll" id="catScroll">
-                    <span class="cat-pill active" onclick="filterCat('TODOS', this)">Todos</span>
-                </div>
-                <div class="results-container" id="results">
-                    </div>
-            </div>
-        </section>
-
-        <div class="link-tree-container" style="width: 100%; display: flex; flex-direction: column; gap: 15px;">
+        <div class="sede-selector">
             
-            <div>
-                <div class="btn-linktree" onclick="toggleMenu('menuSedes')">
-                    <div class="btn-content"><i class="fa-solid fa-map-location-dot"></i> <span>Nuestras Sedes</span></div>
-                    <i class="fa-solid fa-chevron-down"></i>
-                </div>
-                <div id="menuSedes" class="info-wrapper">
-                    <div class="btn-linktree" style="margin-bottom: 10px; font-size: 13px;" onclick="toggleMenu('infoCiudad')">Sede Ciudad Catador</div>
-                    <div id="infoCiudad" class="info-wrapper" style="padding-left: 10px;">
-                        <a href="https://wa.me/584245496366" class="btn-accion"><i class="fa-brands fa-whatsapp" style="color:#25D366"></i> WhatsApp Ventas</a>
-                        <p style="font-size: 11px; margin-top: 5px;">Lun-Dom: 08:00 AM - 09:00 PM</p>
+            <button class="btn-sede" onclick="toggleSede('contentGranCatador', this)">
+                <span><i class="fa-solid fa-star" style="color:var(--dorado)"></i> GRAN CATADOR</span>
+                <i class="fa-solid fa-chevron-down"></i>
+            </button>
+            <div id="contentGranCatador" class="sede-content">
+                <p style="font-size: 11px; color: var(--dorado); margin-bottom: 15px; text-align: center;">Sede Principal - Ciudad Catador (Inventario en Vivo)</p>
+                
+                <div class="info-row"><i class="fa-solid fa-clock"></i> 08:00 AM - 09:00 PM</div>
+                <div class="info-row"><i class="fa-solid fa-location-dot"></i> CC Ciudad Catador, El Guaimito.</div>
+                <a href="https://wa.me/584245496366" class="btn-action" style="background: #25D366;"><i class="fa-brands fa-whatsapp"></i> CONTACTAR SEDE</a>
+
+                <div class="premium-box">
+                    <div style="display: flex; justify-content: space-between; font-size: 11px; margin-bottom: 10px;">
+                        <span>Tasa BCV: <b id="tasaDisplay">Cargando...</b></span>
+                        <span id="relojDisplay">--:--:--</span>
+                    </div>
+                    
+                    <div class="search-bar-wrapper">
+                        <i class="fa-solid fa-magnifying-glass search-icon"></i>
+                        <input type="text" id="inputBusqueda" placeholder="Buscar producto en Ciudad Catador...">
+                    </div>
+
+                    <div id="listaProductos" class="product-list">
+                        <p style="text-align:center; font-size: 12px; color: #666;">Empieza a escribir para buscar...</p>
                     </div>
                 </div>
             </div>
 
-            <div>
-                <div class="btn-linktree" onclick="toggleMenu('menuQuejas')">
-                    <div class="btn-content"><i class="fa-solid fa-circle-exclamation" style="color: #ea4335;"></i> <span>Buzón de Sugerencias</span></div>
-                    <i class="fa-solid fa-chevron-down"></i>
-                </div>
-                <div id="menuQuejas" class="info-wrapper">
-                    <div class="quejas-box">
-                        <textarea id="textQueja" rows="3" placeholder="Tu opinión nos ayuda a mejorar..."></textarea>
-                        <button onclick="sendQueja()" style="width: 100%; padding: 10px; margin-top: 10px; background: var(--dorado); border: none; border-radius: 5px; font-weight: bold;">Enviar a Gerencia</button>
-                    </div>
-                </div>
+            <button class="btn-sede" onclick="toggleSede('contentBodegon', this)">
+                <span><i class="fa-solid fa-store"></i> EL BODEGÓN DEL CATADOR</span>
+                <i class="fa-solid fa-chevron-down"></i>
+            </button>
+            <div id="contentBodegon" class="sede-content">
+                <div class="info-row"><i class="fa-solid fa-clock"></i> 10:00 AM - 10:00 PM</div>
+                <div class="info-row"><i class="fa-solid fa-location-dot"></i> Av. Cuatricentenaria.</div>
+                <a href="https://wa.me/584245496366" class="btn-action"><i class="fa-brands fa-whatsapp"></i> CONSULTAR DISPONIBILIDAD</a>
+            </div>
+
+            <button class="btn-sede" onclick="toggleSede('contentDistriboca', this)">
+                <span><i class="fa-solid fa-boxes-stacked"></i> DISTRIBOCA (VENTAS AL MAYOR)</span>
+                <i class="fa-solid fa-chevron-down"></i>
+            </button>
+            <div id="contentDistriboca" class="sede-content">
+                <div class="info-row"><i class="fa-solid fa-clock"></i> 08:00 AM - 05:00 PM</div>
+                <div class="info-row"><i class="fa-solid fa-truck"></i> Atención a comercios y mayoristas.</div>
+                <a href="https://wa.me/584245496366" class="btn-action" style="border: 1px solid var(--dorado);">PEDIR LISTA DE PRECIOS MAYOR</a>
             </div>
 
         </div>
     </main>
 
-    <footer>
-        <div class="reloj-vivo" id="contenedorReloj">Barinas, VZLA</div>
-    </footer>
+    <div id="cart-floating" onclick="irAlCarrito()">
+        <i class="fa-solid fa-cart-shopping" style="color:white; font-size: 22px;"></i>
+        <span class="badge" id="cartCount">0</span>
+    </div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.0/papaparse.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.6.2"></script>
 
     <script>
-        // === CONFIGURACIÓN GLOBAL ===
-        let globalInventory = [];
+        let inventario = [];
         let fuse;
-        let cart = {};
-        let tasaBCV = 45.20; // Default
+        let carrito = {};
+        let tasaBCV = 45.10;
 
-        // === 1. CARGA DE DATOS FOXDATA ===
-        async function loadData() {
-            const fetchCSV = (url) => new Promise(res => {
-                Papa.parse(url, {
-                    download: true,
+        // 1. CONTROL DE DESPLEGABLES
+        function toggleSede(id, btn) {
+            const content = document.getElementById(id);
+            const isOpen = content.classList.contains('open');
+            
+            // Cerrar todos
+            document.querySelectorAll('.sede-content').forEach(c => c.classList.remove('open'));
+            document.querySelectorAll('.btn-sede').forEach(b => b.classList.remove('active'));
+
+            if (!isOpen) {
+                content.classList.add('open');
+                btn.classList.add('active');
+            }
+        }
+
+        // 2. CARGA DE DATOS (EXCLUSIVO GRAN CATADOR)
+        async function cargarInventario() {
+            try {
+                const response = await fetch('Inventario Fisico general precio por unidad.csv');
+                const csvData = await response.text();
+                
+                Papa.parse(csvData, {
                     header: false,
                     encoding: "latin-1",
-                    complete: (results) => res(results.data)
-                });
-            });
-
-            try {
-                const [preciosRaw, stockRaw] = await Promise.all([
-                    fetchCSV("Inventario Fisico general precio por unidad.csv"),
-                    fetchCSV("inventario por existencia.csv")
-                ]);
-
-                let itemsMap = {};
-                // Procesar precios
-                preciosRaw.forEach(row => {
-                    if (row.length >= 5) {
-                        let cod = row[row.length - 4]?.trim();
-                        let usd = row[row.length - 1]?.trim();
-                        if (cod && !isNaN(cod) && usd?.includes(',')) {
-                            itemsMap[cod] = {
-                                cod: cod,
-                                nombre: row[row.length - 3]?.trim(),
-                                cat: row[row.length - 5]?.trim(),
-                                precioBs: row[row.length - 2]?.trim(),
-                                precioUsd: usd,
-                                stock: "0,000"
-                            };
-                        }
+                    complete: (results) => {
+                        inventario = results.data.filter(row => row.length >= 5).map(row => ({
+                            cod: row[row.length-4],
+                            nombre: row[row.length-3],
+                            precio: row[row.length-1],
+                            bs: row[row.length-2]
+                        })).filter(item => item.nombre && item.precio.includes(','));
+                        
+                        fuse = new Fuse(inventario, { keys: ['nombre'], threshold: 0.3 });
                     }
                 });
 
-                // Cruzar Stock
-                stockRaw.forEach(row => {
-                    let idx = row.indexOf("Existencia");
-                    if (idx !== -1) {
-                        let cod = row[idx + 2]?.trim();
-                        if (itemsMap[cod]) itemsMap[cod].stock = row[idx + 8]?.trim();
-                    }
-                });
-
-                globalInventory = Object.values(itemsMap);
-                
-                // Configurar Categorías
-                const cats = [...new Set(globalInventory.map(i => i.cat))].filter(c => c);
-                const scroll = document.getElementById('catScroll');
-                cats.forEach(c => {
-                    const el = document.createElement('span');
-                    el.className = 'cat-pill';
-                    el.innerText = c;
-                    el.onclick = () => filterCat(c, el);
-                    scroll.appendChild(el);
-                });
-
-                // Motor de Búsqueda Difusa
-                fuse = new Fuse(globalInventory, { keys: ['nombre'], threshold: 0.4, includeScore: true });
-                console.log("Sistema de Inventario Listo");
-            } catch (e) { console.error("Error cargando DB", e); }
+                // Obtener Tasa Real
+                const t = await fetch('https://ve.dolarapi.com/v1/dolares/oficial');
+                const d = await t.json();
+                tasaBCV = d.promedio;
+                document.getElementById('tasaDisplay').innerText = tasaBCV + " Bs";
+            } catch (e) {
+                document.getElementById('tasaDisplay').innerText = "45.10 Bs";
+            }
         }
 
-        // === 2. LÓGICA DE BÚSQUEDA Y RENDER ===
-        const input = document.getElementById('inputBusqueda');
-        input.addEventListener('input', (e) => {
+        // 3. BUSCADOR EN TIEMPO REAL
+        document.getElementById('inputBusqueda').addEventListener('input', (e) => {
             const val = e.target.value;
-            const sug = document.getElementById('sugerencia');
-            sug.style.display = "none";
-
-            if (val.length < 2) { renderProds([]); return; }
-
-            const results = fuse.search(val);
-            if (results.length > 0) {
-                if (results[0].score > 0.1) {
-                    sug.innerHTML = `¿Quisiste decir: <b>${results[0].item.nombre}</b>?`;
-                    sug.style.display = "block";
-                }
-                renderProds(results.map(r => r.item));
+            const container = document.getElementById('listaProductos');
+            
+            if (val.length < 2) {
+                container.innerHTML = `<p style="text-align:center; font-size: 12px; color: #666;">Escribe el nombre del producto...</p>`;
+                return;
             }
+
+            const res = fuse.search(val).slice(0, 10);
+            container.innerHTML = "";
+
+            res.forEach(obj => {
+                const p = obj.item;
+                const div = document.createElement('div');
+                div.className = 'item-card';
+                div.innerHTML = `
+                    <div style="max-width: 70%;">
+                        <div style="font-size:12px; font-weight:600;">${p.nombre}</div>
+                        <div style="color:var(--dorado); font-size:14px; font-weight:700;">$${p.precio}</div>
+                    </div>
+                    <button onclick="agregar('${p.nombre}', '${p.precio}')" style="background:var(--dorado); border:none; padding:8px 12px; border-radius:5px; font-weight:bold; cursor:pointer;">+</button>
+                `;
+                container.appendChild(div);
+            });
         });
 
-        function renderProds(list) {
-            const container = document.getElementById('results');
-            container.innerHTML = "";
-            list.slice(0, 15).forEach(p => {
-                const card = document.createElement('div');
-                card.className = 'prod-card';
-                card.innerHTML = `
-                    <div style="flex-grow:1">
-                        <span class="res-nombre">${p.nombre}</span>
-                        <span style="color:var(--dorado); font-weight:700">$${p.precioUsd}</span>
-                        <span style="font-size:10px; color:var(--color-texto-mutado); display:block">Stock: ${p.stock}</span>
-                    </div>
-                    <button class="btn-add-cart" onclick="addToCart('${p.cod}')">Añadir</button>
-                `;
-                container.appendChild(card);
-            });
-        }
-
-        function filterCat(cat, el) {
-            document.querySelectorAll('.cat-pill').forEach(p => p.classList.remove('active'));
-            el.classList.add('active');
-            const filtered = cat === 'TODOS' ? [] : globalInventory.filter(i => i.cat === cat);
-            renderProds(filtered);
-        }
-
-        // === 3. SISTEMA DE CARRITO ===
-        function addToCart(cod) {
-            const item = globalInventory.find(i => i.cod === cod);
-            if (cart[cod]) cart[cod].qty++;
-            else cart[cod] = { ...item, qty: 1 };
-            updateCartUI();
+        // 4. LÓGICA DE CARRITO
+        function agregar(nombre, precio) {
+            if (carrito[nombre]) carrito[nombre].cant++;
+            else carrito[nombre] = { precio: parseFloat(precio.replace(',','.')), display: precio, cant: 1 };
             
-            // Efecto visual al botón
-            document.getElementById('cart-trigger').style.display = 'flex';
+            actualizarNotificacion();
         }
 
-        function updateCartUI() {
-            const container = document.getElementById('cartItems');
-            container.innerHTML = "";
+        function actualizarNotificacion() {
+            const totalItems = Object.values(carrito).reduce((acc, curr) => acc + curr.cant, 0);
+            const btn = document.getElementById('cart-floating');
+            document.getElementById('cartCount').innerText = totalItems;
+            btn.style.display = totalItems > 0 ? 'flex' : 'none';
+        }
+
+        function irAlCarrito() {
+            let msg = "Hola Gran Catador! 👋 Quisiera hacer un pedido de Ciudad Catador:%0A%0A";
             let total = 0;
-            let count = 0;
-
-            for (let id in cart) {
-                let item = cart[id];
-                let pNum = parseFloat(item.precioUsd.replace(',','.'));
-                total += (pNum * item.qty);
-                count += item.qty;
-
-                container.innerHTML += `
-                    <div class="cart-item">
-                        <div style="max-width: 60%;">
-                            <div style="font-size:12px; font-weight:600">${item.nombre}</div>
-                            <div style="color:var(--dorado)">$${item.precioUsd}</div>
-                        </div>
-                        <div class="qty-controls">
-                            <span class="qty-btn" onclick="updateQty('${id}', -1)">-</span>
-                            <span>${item.qty}</span>
-                            <span class="qty-btn" onclick="updateQty('${id}', 1)">+</span>
-                        </div>
-                    </div>
-                `;
+            for (let n in carrito) {
+                msg += `• ${carrito[n].cant}x ${n} ($${carrito[n].display})%0A`;
+                total += (carrito[n].precio * carrito[n].cant);
             }
-
-            document.getElementById('cart-count').innerText = count;
-            document.getElementById('totalUSD').innerText = `$${total.toFixed(2)}`;
-            document.getElementById('totalBS').innerText = `${(total * tasaBCV).toLocaleString('es-VE')} Bs`;
-            if(count === 0) document.getElementById('cart-trigger').style.display = 'none';
-        }
-
-        function updateQty(id, delta) {
-            cart[id].qty += delta;
-            if (cart[id].qty <= 0) delete cart[id];
-            updateCartUI();
-        }
-
-        function openCart() { document.getElementById('modalCart').style.display = 'flex'; }
-        function closeCart() { document.getElementById('modalCart').style.display = 'none'; }
-
-        function checkout() {
-            let msg = "Hola Gran Catador! 👋 Quisiera pedir:%0A%0A";
-            for(let id in cart) msg += `• *${cart[id].qty}x* ${cart[id].nombre} ($${cart[id].precioUsd})%0A`;
-            msg += `%0A*TOTAL:* ${document.getElementById('totalUSD').innerText}%0A*Tasa:* ${tasaBCV} Bs`;
+            msg += `%0A*TOTAL ESTIMADO:* $${total.toFixed(2)} (Tasa: ${tasaBCV})`;
             window.open(`https://wa.me/584245496366?text=${msg}`);
         }
 
-        // === 4. UTILIDADES ===
-        function toggleMenu(id) {
-            document.getElementById(id).classList.toggle('open');
-        }
-
-        async function getTasa() {
-            try {
-                const r = await fetch('https://ve.dolarapi.com/v1/dolares/oficial');
-                const d = await r.json();
-                tasaBCV = d.promedio;
-                document.getElementById('tasaBCV').innerText = tasaBCV + " Bs";
-            } catch(e) { document.getElementById('tasaBCV').innerText = "45.10 Bs"; }
-        }
-
-        function updateClock() {
+        // 5. RELOJ
+        setInterval(() => {
             const now = new Date();
-            document.getElementById('fechaReloj').innerText = now.toLocaleString('es-VE', { weekday: 'long', hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: true });
-            
-            // Lógica de estado abierto/cerrado (simplificada)
-            const h = now.getHours();
-            const status = document.getElementById('statusSede');
-            if(h >= 8 && h < 21) {
-                status.innerHTML = `<span class="status-dot" style="background: #25D366;"></span> ABIERTO`;
-            } else {
-                status.innerHTML = `<span class="status-dot" style="background: #ea4335;"></span> CERRADO`;
-            }
-        }
+            document.getElementById('relojDisplay').innerText = now.toLocaleTimeString('es-VE', { hour12: true });
+        }, 1000);
 
-        function sendQueja() {
-            const t = document.getElementById('textQueja').value;
-            if(!t) return alert("Escribe algo...");
-            window.open(`https://wa.me/584245496366?text=⚠️ REPORTE/SUGERENCIA:%0A${t}`);
-        }
-
-        // === INICIO ===
-        window.onload = () => {
-            getTasa();
-            loadData();
-            updateClock();
-            setInterval(updateClock, 1000);
-        };
+        window.onload = cargarInventario;
     </script>
 </body>
 </html>
