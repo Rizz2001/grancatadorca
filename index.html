@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
-        /* === 1. MODO CLARO (POR DEFECTO - BLANCO/GRIS CLARO) === */
+        /* === 1. MODO CLARO === */
         :root {
             --color-fondo: #f4f6f9;
             --color-texto: #111827;
@@ -27,7 +27,7 @@
             --input-bg: rgba(0, 0, 0, 0.05);
         }
 
-        /* === 2. MODO OSCURO (NEGRO AZULADO) === */
+        /* === 2. MODO OSCURO === */
         body.dark-mode {
             --color-fondo: #050a14;
             --color-texto: #f3f4f6;
@@ -102,7 +102,7 @@
         .tasa-bcv { background: var(--card-bg); padding: 5px 15px; border-radius: 20px; font-size: 11px; display: inline-block; border: 1px solid var(--dorado); margin-bottom: 10px; color: var(--color-texto); backdrop-filter: blur(5px); }
         .tasa-bcv b { color: var(--dorado); }
 
-        /* === 6. BOTONES ORIGINALES (LINKTREE) === */
+        /* === 6. BOTONES === */
         .btn {
             width: 100%;
             background-color: var(--btn-fondo-base);
@@ -143,7 +143,7 @@
         .horario-texto.abierto { max-height: 200px; opacity: 1; padding: 12px 10px; border: 1px solid var(--border-color); margin-bottom: 5px; }
         .dia-resalte { color: var(--dorado); font-weight: 700; }
 
-        /* === 7. BUSCADOR INTELIGENTE === */
+        /* === 7. BUSCADOR === */
         .search-container { background: var(--card-bg); padding: 15px; border-radius: 12px; border: 1px solid var(--border-color); backdrop-filter: blur(10px); margin-bottom: 10px; }
         
         .cat-nav { display: flex; align-items: center; gap: 8px; margin-bottom: 15px; }
@@ -168,7 +168,7 @@
         .btn-add { background: var(--dorado); color: black; border: none; padding: 8px 12px; border-radius: 6px; font-size: 12px; font-weight: 700; cursor: pointer; transition: 0.2s; }
         .btn-add:active { transform: scale(0.9); }
 
-        /* === 8. CARRITO Y E-COMMERCE === */
+        /* === 8. CARRITO === */
         #cart-floating { position: fixed; bottom: 30px; right: 20px; background: #25D366; width: 65px; height: 65px; border-radius: 50%; display: none; align-items: center; justify-content: center; box-shadow: 0 5px 20px rgba(0,0,0,0.5); z-index: 1000; cursor: pointer; border: 2px solid white; transition: transform 0.3s; }
         #cart-floating:hover { transform: scale(1.1); }
         #cart-count { position: absolute; top: 0; right: 0; background: red; color: white; border-radius: 50%; width: 24px; height: 24px; font-size: 12px; display: flex; align-items: center; justify-content: center; font-weight: bold; border: 2px solid white; }
@@ -181,7 +181,7 @@
         .vuelto-input:focus { border-bottom-color: #25D366; }
         #res-vuelto { transition: opacity 0.3s ease; opacity: 0; }
 
-        /* === 9. INSTAGRAM Y FOOTER === */
+        /* === 9. FOOTER === */
         .insta-footer { text-align: center; margin-top: 10px; width: 100%; }
         .insta-btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%); color: white; padding: 15px; border-radius: 12px; text-decoration: none; font-weight: bold; font-size: 13px; width: 100%; transition: 0.3s; }
         .insta-btn:hover { opacity: 0.9; transform: translateY(-2px); }
@@ -191,7 +191,7 @@
         .reloj-hora { color: var(--dorado); font-weight: 700; font-size: 13px; margin-left: 5px; }
     </style>
 </head>
-<body onload="verificarEdad()">
+<body onload="iniciarApp()">
 
     <div id="age-gate">
         <div class="age-box">
@@ -245,7 +245,7 @@
             <img src="logo.png" alt="Gran Catador Logo" class="logo">
             <h1>El Catador</h1>
             <p class="ubicacion"><i class="fa-solid fa-location-dot"></i> Barinas, Venezuela</p>
-            <div class="tasa-bcv" style="margin-top: 10px;">Tasa oficial BCV: <b id="tasaValor">Cargando...</b></div>
+            <div class="tasa-bcv" style="margin-top: 10px;">Tasa oficial BCV: <b id="tasaValor">...</b></div>
         </header>
 
         <button class="btn" id="btnPrincipalSedes" onclick="toggleMenu('btnPrincipalSedes', 'menuPrincipalSedes')">
@@ -325,7 +325,15 @@
     <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.6.2"></script>
 
     <script>
-        // === LÓGICA DEL TEMA ===
+        // =========================================================
+        // 💰 CONFIGURACIÓN MANUAL DE TASA DE CAMBIO 
+        // =========================================================
+        // Cambia este número todos los días cuando actualices tus CSV
+        let tasaOficial = 457.07; 
+        // =========================================================
+
+        let inventario = []; let fuse; let carrito = {}; let totalCarrito = 0; let tiendaAbierta = true; 
+
         function alternarTema(btn) {
             document.body.classList.toggle('dark-mode');
             if(document.body.classList.contains('dark-mode')) {
@@ -335,14 +343,14 @@
             }
         }
 
-        // === LÓGICA DE PROTECCIÓN DE EDAD ===
-        function verificarEdad() {
+        function iniciarApp() {
             document.body.style.overflow = 'hidden';
+            // Aplicar la tasa manual a la vista
+            document.getElementById('tasaValor').innerText = tasaOficial + " Bs";
+            
             actualizarReloj();
             setInterval(actualizarReloj, 1000);
             cargarDatos();
-            // Llama a la API de DolarVZLA automáticamente cada 1 hora (3600000 ms)
-            setInterval(actualizarTasaBCV, 3600000); 
         }
 
         function aceptarEdad() {
@@ -350,7 +358,6 @@
             document.body.style.overflow = 'auto';
         }
 
-        // === 1. LÓGICA DE MENÚS ===
         function toggleMenu(btnId, menuId) {
             const btn = document.getElementById(btnId);
             const menu = document.getElementById(menuId);
@@ -360,12 +367,9 @@
             }
         }
 
-        // === 2. LÓGICA DE HORARIOS Y ESTADOS ===
         const horarioSedes = { 0:{abre:8,cierra:21}, 1:{abre:8,cierra:21}, 2:{abre:8,cierra:21}, 3:{abre:8,cierra:21}, 4:{abre:8,cierra:21}, 5:{abre:8,cierra:21}, 6:{abre:8,cierra:21} };
         const horarioSede = { 0:{abre:0,cierra:0}, 1:{abre:10,cierra:22}, 2:{abre:10,cierra:22}, 3:{abre:10,cierra:22}, 4:{abre:10,cierra:22}, 5:{abre:10,cierra:22}, 6:{abre:10,cierra:22} };
         const horarioVentasMayor = { 0:{abre:0,cierra:0}, 1:{abre:8,cierra:17}, 2:{abre:8,cierra:17}, 3:{abre:8,cierra:17}, 4:{abre:8,cierra:17}, 5:{abre:8,cierra:17}, 6:{abre:8,cierra:12} };
-
-        let tiendaAbierta = true; 
 
         function comprobarEstado(h, id) {
             const n = new Date(); const d = n.getDay(); const hr = n.getHours() + (n.getMinutes()/60);
@@ -384,13 +388,10 @@
             let fechaTexto = ahora.toLocaleDateString('es-VE', opcionesFecha);
             fechaTexto = fechaTexto.charAt(0).toUpperCase() + fechaTexto.slice(1);
 
-            let horas = ahora.getHours();
-            let minutos = ahora.getMinutes();
-            let segundos = ahora.getSeconds();
+            let horas = ahora.getHours(), minutos = ahora.getMinutes(), segundos = ahora.getSeconds();
             const ampm = horas >= 12 ? 'PM' : 'AM';
             
-            horas = horas % 12;
-            horas = horas ? horas : 12; 
+            horas = horas % 12; horas = horas ? horas : 12; 
             minutos = minutos < 10 ? '0' + minutos : minutos;
             segundos = segundos < 10 ? '0' + segundos : segundos;
             
@@ -406,50 +407,21 @@
             tiendaAbierta = ab1;
             const btnWA = document.getElementById('btn-wa-enviar');
             if(!tiendaAbierta) {
-                btnWA.innerHTML = "TIENDA CERRADA";
-                btnWA.style.background = "#555";
+                btnWA.innerHTML = "TIENDA CERRADA"; btnWA.style.background = "#555";
             } else {
-                btnWA.innerHTML = "<i class='fa-brands fa-whatsapp'></i> ENVIAR PEDIDO";
-                btnWA.style.background = "#25D366";
-            }
-        }
-
-        // === 3. INVENTARIO FOXDATA Y BÚSQUEDA ===
-        let inventario = []; let fuse; let carrito = {}; let tasaOficial = 45.10; let totalCarrito = 0;
-
-        // CORRECCIÓN: API ESTABLE Y SIN BLOQUEOS CORS
-        async function actualizarTasaBCV() {
-            try {
-                // Usamos DolarAPI, es el estándar y no tiene bloqueos en GitHub Pages
-                const resTasa = await fetch('https://ve.dolarapi.com/v1/dolares/oficial'); 
-                if (!resTasa.ok) throw new Error("Fallo en red");
-                const dataTasa = await resTasa.json();
-                
-                tasaOficial = dataTasa.promedio || 45.10;
-                
-                document.getElementById('tasaValor').innerText = tasaOficial + " Bs";
-                if(totalCarrito > 0) actualizarUI();
-            } catch(e) { 
-                console.log("Error API Dolar, usando valor de respaldo.");
-                document.getElementById('tasaValor').innerText = tasaOficial + " Bs (Respaldo)"; 
+                btnWA.innerHTML = "<i class='fa-brands fa-whatsapp'></i> ENVIAR PEDIDO"; btnWA.style.background = "#25D366";
             }
         }
 
         async function cargarDatos() {
-            // No bloquea la página si el dólar falla
-            actualizarTasaBCV();
-
             try {
                 const fetchCSV = (u) => new Promise((resolve, reject) => {
                     Papa.parse(u, { 
-                        download: true, 
-                        encoding: "latin-1", 
-                        complete: (r) => resolve(r.data),
-                        error: (err) => reject(err)
+                        download: true, encoding: "latin-1", 
+                        complete: (r) => resolve(r.data), error: (err) => reject(err)
                     })
                 });
 
-                // CUIDADO: NOMBRES IDÉNTICOS A GITHUB
                 const [pRaw, sRaw] = await Promise.all([
                     fetchCSV("Inventario Fisico general precio por unidad.csv"),
                     fetchCSV("inventario por existencia.csv")
@@ -458,8 +430,7 @@
                 let mapa = {};
                 pRaw.forEach(r => {
                     if (r.length >= 5) {
-                        let cod = r[r.length-4]?.trim();
-                        let usd = r[r.length-1]?.trim();
+                        let cod = r[r.length-4]?.trim(), usd = r[r.length-1]?.trim();
                         if (cod && !isNaN(cod) && usd?.includes(',')) {
                             mapa[cod] = { 
                                 Nombre: r[r.length-3]?.trim(), 
@@ -499,7 +470,7 @@
 
             } catch (e) { 
                 console.error("Error CSV", e);
-                document.getElementById('contenedorResultados').innerHTML = '<p style="text-align:center; font-size:11px; padding:20px; color:#ea4335;">Error leyendo CSV. Verifica los nombres exactos en GitHub.</p>';
+                document.getElementById('contenedorResultados').innerHTML = '<p style="text-align:center; font-size:11px; padding:20px; color:#ea4335;">Error leyendo CSV. Verifica los nombres en GitHub.</p>';
             }
         }
 
@@ -538,24 +509,13 @@
             });
         }
 
-        // === 4. LÓGICA DEL CARRITO Y VUELTO ===
-        function abrirCarrito() {
-            document.getElementById('modal-cart').style.display = 'flex';
-            document.body.style.overflow = 'hidden';
-        }
-
-        function cerrarCarrito() {
-            document.getElementById('modal-cart').style.display = 'none';
-            document.body.style.overflow = 'auto';
-        }
+        function abrirCarrito() { document.getElementById('modal-cart').style.display = 'flex'; document.body.style.overflow = 'hidden'; }
+        function cerrarCarrito() { document.getElementById('modal-cart').style.display = 'none'; document.body.style.overflow = 'auto'; }
 
         function agregarAlCarrito(nombre, pStr, pNum) {
             if(!tiendaAbierta) return alert("Estamos cerrados. Procesaremos pedidos en nuestro horario laboral.");
-            
             try { document.getElementById('sound-pop').play(); } catch(e){}
-
-            if(carrito[nombre]) carrito[nombre].cant++;
-            else carrito[nombre] = { pStr, pNum, cant: 1 };
+            if(carrito[nombre]) carrito[nombre].cant++; else carrito[nombre] = { pStr, pNum, cant: 1 };
             actualizarUI();
         }
 
@@ -594,13 +554,9 @@
             const pago = parseFloat(document.getElementById('montoPago').value) || 0;
             const res = document.getElementById('res-vuelto');
             if(pago > totalCarrito && totalCarrito > 0) {
-                let vUsd = pago - totalCarrito;
-                let vBs = vUsd * tasaOficial;
-                res.innerHTML = `Su vuelto: $${vUsd.toFixed(2)} / ${vBs.toLocaleString('es-VE')} Bs`;
-                res.style.opacity = 1;
-            } else { 
-                res.style.opacity = 0; 
-            }
+                let vUsd = pago - totalCarrito, vBs = vUsd * tasaOficial;
+                res.innerHTML = `Su vuelto: $${vUsd.toFixed(2)} / ${vBs.toLocaleString('es-VE')} Bs`; res.style.opacity = 1;
+            } else { res.style.opacity = 0; }
         }
 
         function enviarPedidoWA() {
@@ -610,16 +566,13 @@
             
             const pago = parseFloat(document.getElementById('montoPago').value) || 0;
             if(pago > totalCarrito) {
-                let vUsd = (pago - totalCarrito).toFixed(2);
-                let vBs = ((pago - totalCarrito) * tasaOficial).toLocaleString('es-VE');
+                let vUsd = (pago - totalCarrito).toFixed(2), vBs = ((pago - totalCarrito) * tasaOficial).toLocaleString('es-VE');
                 msg += `%0A💵 _Pagaré con un billete de $${pago}_`;
                 msg += `%0A🟢 _Por favor, requiero vuelto de: $${vUsd} o ${vBs} Bs_`;
             }
 
             msg += `%0A%0A*TOTAL:* $${totalCarrito.toFixed(2)} (Tasa BCV: ${tasaOficial})`;
-            
-            cerrarCarrito();
-            window.open(`https://wa.me/584245496366?text=${msg}`, '_blank');
+            cerrarCarrito(); window.open(`https://wa.me/584245496366?text=${msg}`, '_blank');
         }
     </script>
 </body>
