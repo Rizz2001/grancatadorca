@@ -60,7 +60,7 @@
         
         @keyframes fadeIn { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
 
-        /* === 4. PROTECTOR DE EDAD (NUEVO) === */
+        /* === 4. PROTECTOR DE EDAD === */
         #age-gate {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background: rgba(0,0,0,0.95); z-index: 9999;
@@ -74,7 +74,8 @@
 
         /* === 5. HEADER Y DASHBOARD === */
         .top-controls { width: 100%; display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
-        .btn-theme { background: rgba(255,255,255,0.1); border: 1px solid var(--dorado); color: white; padding: 6px 12px; border-radius: 20px; font-size: 11px; cursor: pointer; }
+        .btn-theme { background: rgba(255,255,255,0.1); border: 1px solid var(--dorado); color: white; padding: 6px 12px; border-radius: 20px; font-size: 11px; cursor: pointer; transition: 0.3s; }
+        .btn-theme:hover { background: var(--dorado); color: black; }
 
         header { text-align: center; margin-bottom: 15px; }
         .logo { width: 140px; height: auto; border-radius: 50px; margin-bottom: 12px; box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5); border: 1px solid rgba(255, 255, 255, 0.1); }
@@ -107,20 +108,16 @@
         .flecha-toggle { transition: transform 0.3s ease; }
         .btn.activo .flecha-toggle { transform: rotate(180deg); }
 
-        /* Estilos específicos de botones secundarios (Original) */
         .btn-sub { padding: 14px 18px; font-size: 13px; text-transform: none; font-weight: 500; background-image: linear-gradient(var(--btn-fondo-base), var(--btn-fondo-base)), linear-gradient(135deg, rgba(37, 99, 235, 0.5) 0%, transparent 100%); margin-bottom: 10px; }
         .btn-sub.dorado { background-image: linear-gradient(var(--btn-fondo-base), var(--btn-fondo-base)), linear-gradient(135deg, rgba(212, 175, 55, 0.5) 0%, transparent 100%); }
         .btn-sub.mayorista { background-image: linear-gradient(var(--btn-fondo-base), var(--btn-fondo-base)), linear-gradient(135deg, rgba(255, 255, 255, 0.3) 0%, transparent 100%); }
 
-        /* Contenedores Desplegables Originales */
         .info-sede-wrapper { max-height: 0; overflow: hidden; transition: max-height 0.4s ease, opacity 0.4s ease; opacity: 0; width: 90%; margin: 0 auto; display: flex; flex-direction: column; gap: 8px; }
         .info-sede-wrapper.abierto { max-height: 1500px; opacity: 1; margin-top: 5px; margin-bottom: 15px; }
         
-        /* Botones Internos de Acción (MAPS, WA, etc.) */
         .btn-accion { background-color: rgba(255, 255, 255, 0.05); color: var(--color-texto-mutado); text-decoration: none; padding: 12px 15px; border-radius: 8px; font-size: 12px; font-weight: 500; display: flex; align-items: center; gap: 10px; border: 1px solid rgba(255, 255, 255, 0.1); transition: all 0.2s ease; cursor: pointer; width: 100%; font-family: inherit; justify-content: center; }
         .btn-accion:hover { background-color: rgba(255,255,255,0.1); color: white; }
 
-        /* Estados Originales */
         .estado-indicador { margin-bottom: 10px; padding: 6px; border-radius: 4px; font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; text-align: center; }
         .estado-abierto { background-color: rgba(37, 211, 102, 0.1); color: #25D366; border: 1px solid rgba(37, 211, 102, 0.3); }
         .estado-cerrado { background-color: rgba(234, 67, 53, 0.1); color: #ea4335; border: 1px solid rgba(234, 67, 53, 0.3); }
@@ -132,15 +129,16 @@
         /* === 7. BUSCADOR INTELIGENTE EN CIUDAD CATADOR === */
         .search-container { background: rgba(0, 0, 0, 0.5); padding: 15px; border-radius: 12px; border: 1px solid rgba(255, 255, 255, 0.1); backdrop-filter: blur(5px); margin-bottom: 10px; }
         
-        /* Navegador de Categorías con Flechas */
         .cat-nav { display: flex; align-items: center; gap: 8px; margin-bottom: 15px; }
-        .cat-arrow { background: rgba(0,0,0,0.5); border: 1px solid var(--dorado); color: var(--dorado); width: 30px; height: 30px; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; }
+        .cat-arrow { background: rgba(0,0,0,0.5); border: 1px solid var(--dorado); color: var(--dorado); width: 30px; height: 30px; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: 0.2s; }
+        .cat-arrow:active { transform: scale(0.9); }
         .cats-grid { display: flex; gap: 8px; overflow-x: auto; scroll-behavior: smooth; scrollbar-width: none; flex-grow: 1; }
         .cats-grid::-webkit-scrollbar { display: none; }
         .cat-tag { background: rgba(255, 255, 255, 0.1); border: 1px solid rgba(255, 255, 255, 0.2); padding: 7px 15px; border-radius: 20px; font-size: 10px; cursor: pointer; transition: 0.3s; color: var(--plateado); font-weight: 600; text-transform: uppercase; white-space: nowrap; }
         .cat-tag.active { background: var(--dorado); color: black; border-color: var(--dorado); }
 
-        #inputBusqueda { width: 100%; padding: 12px 12px 12px 40px; border-radius: 8px; border: 1px solid var(--dorado); background: rgba(255, 255, 255, 0.05); color: white; font-family: inherit; outline: none; }
+        #inputBusqueda { width: 100%; padding: 12px 12px 12px 40px; border-radius: 8px; border: 1px solid var(--dorado); background: rgba(255, 255, 255, 0.05); color: white; font-family: inherit; outline: none; transition: 0.3s; }
+        #inputBusqueda:focus { background: rgba(0, 0, 0, 0.8); border-color: #25D366; }
         .search-wrap { position: relative; margin-bottom: 10px; }
         .search-wrap i { position: absolute; left: 15px; top: 50%; transform: translateY(-50%); color: var(--dorado); }
 
@@ -154,34 +152,36 @@
         .btn-add:active { transform: scale(0.9); }
 
         /* === 8. CARRITO FLOTANTE Y MODAL E-COMMERCE === */
-        #cart-floating { position: fixed; bottom: 30px; right: 20px; background: #25D366; width: 65px; height: 65px; border-radius: 50%; display: none; align-items: center; justify-content: center; box-shadow: 0 5px 20px rgba(0,0,0,0.5); z-index: 1000; cursor: pointer; border: 2px solid white; }
+        #cart-floating { position: fixed; bottom: 30px; right: 20px; background: #25D366; width: 65px; height: 65px; border-radius: 50%; display: none; align-items: center; justify-content: center; box-shadow: 0 5px 20px rgba(0,0,0,0.5); z-index: 1000; cursor: pointer; border: 2px solid white; transition: transform 0.3s; }
+        #cart-floating:hover { transform: scale(1.1); }
         #cart-count { position: absolute; top: 0; right: 0; background: red; color: white; border-radius: 50%; width: 24px; height: 24px; font-size: 12px; display: flex; align-items: center; justify-content: center; font-weight: bold; border: 2px solid white; }
 
         #modal-cart { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.95); z-index: 2000; display: none; flex-direction: column; padding: 25px; }
         .cart-list { flex-grow: 1; overflow-y: auto; }
         
-        .vuelto-box { background: rgba(255,255,255,0.05); padding: 15px; border-radius: 10px; margin-top: 15px; border: 1px solid var(--dorado); text-align: center; }
-        .vuelto-input { width: 100%; background: transparent; border: none; border-bottom: 1px solid var(--dorado); color: white; padding: 10px; text-align: center; font-size: 18px; outline: none; margin-bottom: 5px; font-family: inherit; }
+        .vuelto-box { background: rgba(255,255,255,0.05); padding: 15px; border-radius: 10px; margin-top: 15px; border: 1px solid var(--dorado); text-align: center; transition: 0.3s; }
+        .vuelto-input { width: 100%; background: transparent; border: none; border-bottom: 1px solid var(--dorado); color: white; padding: 10px; text-align: center; font-size: 18px; outline: none; margin-bottom: 5px; font-family: inherit; transition: 0.3s; }
+        .vuelto-input:focus { border-bottom-color: #25D366; }
+        #res-vuelto { transition: opacity 0.3s ease; opacity: 0; } /* Para animación suave */
 
         /* === 9. INSTAGRAM Y FOOTER === */
         .insta-footer { text-align: center; margin-top: 10px; }
-        .insta-btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%); color: white; padding: 15px; border-radius: 12px; text-decoration: none; font-weight: bold; font-size: 13px; width: 100%; }
+        .insta-btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%); color: white; padding: 15px; border-radius: 12px; text-decoration: none; font-weight: bold; font-size: 13px; width: 100%; transition: 0.3s; }
+        .insta-btn:hover { opacity: 0.9; transform: translateY(-2px); }
 
         footer { margin-top: auto; padding-top: 30px; width: 100%; text-align: center; }
         .reloj-vivo { display: inline-block; background-color: rgba(0, 0, 0, 0.5); padding: 12px 25px; border-radius: 30px; border: 1px solid rgba(255, 255, 255, 0.08); backdrop-filter: blur(8px); font-size: 12px; color: var(--color-texto-mutado); }
         .reloj-hora { color: var(--dorado); font-weight: 600; font-size: 13px; margin-left: 5px; }
     </style>
 </head>
-<body>
-
-    <div id="age-gate">
+<body onload="verificarEdad()"> <div id="age-gate">
         <div class="age-box">
             <img src="logo.png" width="80" style="margin-bottom: 15px; border-radius: 50%;">
             <h2 style="color:var(--dorado)">BIENVENIDO</h2>
             <p style="font-size: 13px; margin: 15px 0;">Debes tener al menos 18 años para entrar al Gran Catador.</p>
             <div style="display:flex; gap: 15px; justify-content: center;">
-                <button onclick="document.getElementById('age-gate').style.display='none'" class="btn" style="width: auto; padding: 10px 30px; margin:0;">SÍ</button>
-                <button onclick="window.location.href='https://google.com'" class="btn" style="width: auto; padding: 10px 30px; margin:0; background: #666; background-image:none; border:none;">NO</button>
+                <button onclick="aceptarEdad()" class="btn" style="width: auto; padding: 10px 30px; margin:0;">SÍ</button>
+                <button onclick="window.location.href='https://google.com'" class="btn" style="width: auto; padding: 10px 30px; margin:0; background: #ea4335; background-image:none; border:none;">NO</button>
             </div>
         </div>
     </div>
@@ -191,7 +191,7 @@
     <div id="modal-cart">
         <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid var(--dorado); padding-bottom: 15px; margin-bottom: 15px;">
             <h2 style="color:var(--dorado); text-transform: uppercase;">Tu Pedido</h2>
-            <i class="fa-solid fa-xmark" onclick="document.getElementById('modal-cart').style.display='none'" style="font-size: 28px; cursor: pointer;"></i>
+            <i class="fa-solid fa-xmark" onclick="cerrarCarrito()" style="font-size: 28px; cursor: pointer; transition: 0.2s;" onmouseover="this.style.color='red'" onmouseout="this.style.color='white'"></i>
         </div>
         
         <div id="lista-carrito" class="cart-list"></div>
@@ -205,13 +205,13 @@
         <div style="background: rgba(255,255,255,0.05); padding: 20px; border-radius: 12px; text-align: right; margin-top: 15px;">
             <div style="font-size: 18px;">Total USD: <b id="cart-total-usd" style="color:var(--dorado)">$0.00</b></div>
             <div style="font-size: 13px; color: var(--color-texto-mutado); margin-bottom: 15px;">Total estimado: <span id="cart-total-bs" style="color:white">0.00 Bs</span></div>
-            <button id="btn-wa-enviar" onclick="enviarPedidoWA()" style="width: 100%; background: #25D366; color: white; border: none; padding: 15px; border-radius: 8px; font-weight: bold; font-size: 14px; cursor: pointer;">
+            <button id="btn-wa-enviar" onclick="enviarPedidoWA()" style="width: 100%; background: #25D366; color: white; border: none; padding: 15px; border-radius: 8px; font-weight: bold; font-size: 14px; cursor: pointer; transition: 0.3s;">
                 <i class="fa-brands fa-whatsapp"></i> ENVIAR PEDIDO
             </button>
         </div>
     </div>
 
-    <div id="cart-floating" onclick="document.getElementById('modal-cart').style.display='flex'">
+    <div id="cart-floating" onclick="abrirCarrito()">
         <i class="fa-solid fa-cart-shopping" style="color: white; font-size: 24px;"></i>
         <div id="cart-count">0</div>
     </div>
@@ -306,7 +306,22 @@
     <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.6.2"></script>
 
     <script>
-        // === 1. LÓGICA DE MENÚS (ORIGINAL RESPALDO) ===
+        // === LÓGICA DE PROTECCIÓN DE EDAD ===
+        function verificarEdad() {
+            // Bloquea el scroll de fondo mientras esté el Age Gate
+            document.body.style.overflow = 'hidden';
+            actualizarReloj();
+            setInterval(actualizarReloj, 1000);
+            cargarDatos();
+        }
+
+        function aceptarEdad() {
+            document.getElementById('age-gate').style.display='none';
+            // Libera el scroll al aceptar
+            document.body.style.overflow = 'auto';
+        }
+
+        // === 1. LÓGICA DE MENÚS ===
         function toggleMenu(btnId, menuId) {
             const btn = document.getElementById(btnId);
             const menu = document.getElementById(menuId);
@@ -316,12 +331,12 @@
             }
         }
 
-        // === 2. LÓGICA DE HORARIOS Y ESTADOS (ORIGINAL RESPALDO) ===
+        // === 2. LÓGICA DE HORARIOS Y ESTADOS ===
         const horarioSedes = { 0:{abre:8,cierra:21}, 1:{abre:8,cierra:21}, 2:{abre:8,cierra:21}, 3:{abre:8,cierra:21}, 4:{abre:8,cierra:21}, 5:{abre:8,cierra:21}, 6:{abre:8,cierra:21} };
         const horarioSede = { 0:{abre:0,cierra:0}, 1:{abre:10,cierra:22}, 2:{abre:10,cierra:22}, 3:{abre:10,cierra:22}, 4:{abre:10,cierra:22}, 5:{abre:10,cierra:22}, 6:{abre:10,cierra:22} };
         const horarioVentasMayor = { 0:{abre:0,cierra:0}, 1:{abre:8,cierra:17}, 2:{abre:8,cierra:17}, 3:{abre:8,cierra:17}, 4:{abre:8,cierra:17}, 5:{abre:8,cierra:17}, 6:{abre:8,cierra:12} };
 
-        let tiendaAbierta = true; // Variable para el carrito
+        let tiendaAbierta = true; 
 
         function comprobarEstado(h, id) {
             const n = new Date(); const d = n.getDay(); const hr = n.getHours() + (n.getMinutes()/60);
@@ -359,7 +374,6 @@
             comprobarEstado(horarioSede, 'estadoCuatri');
             comprobarEstado(horarioVentasMayor, 'estadoMayor');
 
-            // Actualizar botón de WhatsApp del Carrito si está cerrado
             tiendaAbierta = ab1;
             const btnWA = document.getElementById('btn-wa-enviar');
             if(!tiendaAbierta) {
@@ -376,7 +390,6 @@
 
         async function cargarDatos() {
             try {
-                // Tasa BCV Dinámica
                 const resTasa = await fetch('https://ve.dolarapi.com/v1/dolares/oficial');
                 const dataTasa = await resTasa.json();
                 tasaOficial = dataTasa.promedio;
@@ -396,7 +409,6 @@
                         let cod = r[r.length-4]?.trim();
                         let usd = r[r.length-1]?.trim();
                         if (cod && !isNaN(cod) && usd?.includes(',')) {
-                            // Extra: Si el nombre tiene "CAJA" o "BTO", lo marcamos visualmente luego
                             mapa[cod] = { 
                                 Nombre: r[r.length-3]?.trim(), 
                                 Cat: r[r.length-5]?.trim() || "Otros", 
@@ -417,7 +429,6 @@
 
                 inventario = Object.values(mapa).filter(p => p.Nombre).map(p => ({ ...p, Stock: p.Stock || "0,00" }));
                 
-                // Generar Categorías
                 const categorias = [...new Set(inventario.map(p => p.Cat))].filter(c => c);
                 const grid = document.getElementById('gridCategorias');
                 categorias.forEach(c => {
@@ -432,7 +443,6 @@
             } catch (e) { console.error("Error CSV", e); }
         }
 
-        // Filtros y Render
         function filtrar(cat, el) {
             document.querySelectorAll('.cat-tag').forEach(t => t.classList.remove('active'));
             el.classList.add('active');
@@ -469,10 +479,19 @@
         }
 
         // === 4. LÓGICA DEL CARRITO Y VUELTO ===
+        function abrirCarrito() {
+            document.getElementById('modal-cart').style.display = 'flex';
+            document.body.style.overflow = 'hidden'; // Bloquea scroll de fondo
+        }
+
+        function cerrarCarrito() {
+            document.getElementById('modal-cart').style.display = 'none';
+            document.body.style.overflow = 'auto'; // Libera scroll de fondo
+        }
+
         function agregarAlCarrito(nombre, pStr, pNum) {
             if(!tiendaAbierta) return alert("Estamos cerrados. Procesaremos pedidos en nuestro horario laboral.");
             
-            // Efecto de Sonido
             try { document.getElementById('sound-pop').play(); } catch(e){}
 
             if(carrito[nombre]) carrito[nombre].cant++;
@@ -515,9 +534,13 @@
             const pago = parseFloat(document.getElementById('montoPago').value) || 0;
             const res = document.getElementById('res-vuelto');
             if(pago > totalCarrito && totalCarrito > 0) {
-                let v = pago - totalCarrito;
-                res.innerHTML = `Su vuelto: $${v.toFixed(2)} / ${(v * tasaOficial).toLocaleString('es-VE')} Bs`;
-            } else { res.innerHTML = ""; }
+                let vUsd = pago - totalCarrito;
+                let vBs = vUsd * tasaOficial;
+                res.innerHTML = `Su vuelto: $${vUsd.toFixed(2)} / ${vBs.toLocaleString('es-VE')} Bs`;
+                res.style.opacity = 1;
+            } else { 
+                res.style.opacity = 0; 
+            }
         }
 
         function enviarPedidoWA() {
@@ -525,19 +548,21 @@
             let msg = "Hola Gran Catador! 👋 Quisiera este pedido de Ciudad Catador:%0A%0A";
             for(let n in carrito) msg += `• *${carrito[n].cant}x* ${n} ($${carrito[n].pStr})%0A`;
             
+            // INCORPORACIÓN DEL CÁLCULO DE VUELTO AL MENSAJE (SOLUCIÓN)
             const pago = parseFloat(document.getElementById('montoPago').value) || 0;
-            if(pago > totalCarrito) msg += `%0A💵 _Pagaré con un billete de $${pago}_`;
+            if(pago > totalCarrito) {
+                let vUsd = (pago - totalCarrito).toFixed(2);
+                let vBs = ((pago - totalCarrito) * tasaOficial).toLocaleString('es-VE');
+                msg += `%0A💵 _Pagaré con un billete de $${pago}_`;
+                msg += `%0A🟢 _Por favor, requiero vuelto de: $${vUsd} o ${vBs} Bs_`;
+            }
 
             msg += `%0A%0A*TOTAL:* $${totalCarrito.toFixed(2)} (Tasa BCV: ${tasaOficial})`;
+            
+            // Cierra el carrito antes de enviar a WhatsApp
+            cerrarCarrito();
             window.open(`https://wa.me/584245496366?text=${msg}`, '_blank');
         }
-
-        // Iniciar
-        window.onload = function() {
-            actualizarReloj();
-            setInterval(actualizarReloj, 1000);
-            cargarDatos();
-        };
     </script>
 </body>
 </html>
