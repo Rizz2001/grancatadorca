@@ -291,7 +291,10 @@
             </button>
             <div class="info-sede-wrapper" id="infoCuatricentenaria">
                 <div id="estadoCuatri" class="estado-indicador"></div>
-                <a href="https://wa.me/584240000000" target="_blank" class="btn-accion"><i class="fa-brands fa-whatsapp" style="color: #25D366;"></i> WhatsApp Sede</a>
+                
+                <a href="https://share.google/Z4BwTj0sw9BYqX8yc" target="_blank" class="btn-accion"><i class="fa-solid fa-map-location-dot" style="color: #ea4335;"></i> Ver en Maps</a>
+                <a href="tel:+584145051147" class="btn-accion"><i class="fa-solid fa-phone" style="color: #34a853;"></i> 0414-5051147</a>
+                <a href="https://wa.me/584145051147" target="_blank" class="btn-accion" style="background: rgba(37, 211, 102, 0.1); color: #25D366; border-color: #25D366;"><i class="fa-brands fa-whatsapp"></i> WhatsApp Sede</a>
                 <button class="btn-accion" onclick="toggleMenu('btnHorarioCuatri', 'horarioCuatri')"><i class="fa-regular fa-clock" style="color: #fbbc05;"></i> Horarios</button>
                 <div class="horario-texto" id="horarioCuatri"><span class="dia-resalte">Lunes a Sábados:</span> 10:00 am - 10:00 pm</div>
             </div>
@@ -329,7 +332,7 @@
         // 💰 CONFIGURACIÓN MANUAL DE TASA DE CAMBIO 
         // =========================================================
         // Cambia este número todos los días cuando actualices tus CSV
-        let tasaOficial = 457.07; 
+        let tasaOficial = 45.30; 
         // =========================================================
 
         let inventario = []; let fuse; let carrito = {}; let totalCarrito = 0; let tiendaAbierta = true; 
@@ -345,7 +348,6 @@
 
         function iniciarApp() {
             document.body.style.overflow = 'hidden';
-            // Aplicar la tasa manual a la vista
             document.getElementById('tasaValor').innerText = tasaOficial + " Bs";
             
             actualizarReloj();
