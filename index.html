@@ -3,236 +3,386 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>El Catador | Barinas</title>
+    <title>El Catador | Enlaces Informativo</title>
     
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
-        /* === VARIABLES ORIGINALES === */
+        /* === 1. VARIABLES CSS ORIGINALES (INTACTAS) === */
         :root {
             --color-fondo: #0012E4;
             --color-texto: #ffffff;
             --color-texto-mutado: #a1a1aa;
             --azul-rey: #0A028F;
             --dorado: #F5A700;
+            --plateado: #e2e8f0;
             --btn-fondo-base: rgba(15, 15, 17, 0.85);
             --borde-radio: 10px;
-            --glass: rgba(0, 0, 0, 0.7);
         }
 
+        /* === 2. MODO OSCURO (NUEVO) === */
         body.dark-mode {
-            --color-fondo: #050505;
-            --azul-rey: #111111;
-            --btn-fondo-base: rgba(20, 20, 20, 0.95);
+            --color-fondo: #080808;
+            --azul-rey: #1a1a1a;
+            --btn-fondo-base: rgba(25, 25, 25, 0.95);
         }
 
+        /* === 3. RESETEO Y ESTRUCTURA BASE === */
         * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
-        
-        body { 
-            font-family: 'Poppins', sans-serif; 
-            background-color: var(--color-fondo); 
-            color: var(--color-texto); 
-            min-height: 100vh; 
-            overflow-x: hidden; 
-            display: flex; 
-            flex-direction: column; 
-            align-items: center; 
-            padding: 20px 15px 100px 15px; 
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--color-fondo);
+            color: var(--color-texto);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 30px 20px 100px 20px;
             position: relative;
-            transition: background 0.4s ease;
+            overflow-x: hidden;
+            transition: background-color 0.4s ease;
         }
 
-        body::before { 
-            content: ""; position: fixed; top: 0; left: 0; width: 100%; height: 100%; 
-            background-image: url('fondo.webp'); background-size: cover; 
-            background-position: center; filter: blur(15px) brightness(0.2); z-index: -1; 
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background-image: url('fondo.webp');
+            background-size: cover;
+            background-position: center;
+            filter: blur(15px) brightness(0.2);
+            z-index: -1;
         }
 
-        /* === PROTECTOR DE EDAD CORREGIDO === */
-        #age-gate { 
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%; 
-            background: rgba(0,0,0,0.98); z-index: 9999; 
-            display: flex; align-items: center; justify-content: center; 
+        main { width: 100%; max-width: 420px; z-index: 10; display: flex; flex-direction: column; gap: 16px; animation: fadeIn 0.8s ease-out; }
+        
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* === 4. PROTECTOR DE EDAD (NUEVO) === */
+        #age-gate {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.95); z-index: 9999;
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
         }
-        .age-box { 
-            background: var(--btn-fondo-base); border: 2px solid var(--dorado); 
-            padding: 30px; border-radius: 20px; text-align: center; max-width: 320px; 
-        }
-
-        main { width: 100%; max-width: 420px; z-index: 10; }
-
-        /* === DASHBOARD Y CONTROLES === */
-        .top-bar { width: 100%; display: flex; justify-content: space-between; margin-bottom: 15px; align-items: center; }
-        .btn-theme { background: var(--glass); border: 1px solid var(--dorado); color: white; padding: 5px 12px; border-radius: 15px; font-size: 11px; cursor: pointer; }
-
-        .dashboard { 
-            background: var(--glass); border: 1px solid rgba(255,255,255,0.1); 
-            border-radius: var(--borde-radio); padding: 15px; 
-            display: flex; justify-content: space-between; margin-bottom: 20px; 
+        .age-box {
+            background: var(--btn-fondo-base); border: 2px solid var(--dorado);
+            padding: 30px; border-radius: 20px; text-align: center; max-width: 320px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.8);
         }
 
-        /* === BOTONES SEDES (ESTILO RESPALDO) === */
-        .btn-sede { 
-            width: 100%; background-color: var(--btn-fondo-base); color: var(--color-texto); 
-            border: none; padding: 18px 20px; border-radius: var(--borde-radio); 
-            font-family: inherit; font-size: 13px; font-weight: 600; text-transform: uppercase; 
-            display: flex; align-items: center; justify-content: space-between; 
-            cursor: pointer; transition: 0.3s; backdrop-filter: blur(10px); 
+        /* === 5. HEADER Y DASHBOARD === */
+        .top-controls { width: 100%; display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
+        .btn-theme { background: rgba(255,255,255,0.1); border: 1px solid var(--dorado); color: white; padding: 6px 12px; border-radius: 20px; font-size: 11px; cursor: pointer; }
+
+        header { text-align: center; margin-bottom: 15px; }
+        .logo { width: 140px; height: auto; border-radius: 50px; margin-bottom: 12px; box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5); border: 1px solid rgba(255, 255, 255, 0.1); }
+        h1 { font-size: 24px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; }
+        .ubicacion { font-size: 14px; color: var(--color-texto-mutado); display: flex; align-items: center; justify-content: center; gap: 6px; margin-top: 4px; }
+
+        .tasa-bcv { background: rgba(0, 0, 0, 0.6); padding: 5px 15px; border-radius: 20px; font-size: 11px; display: inline-block; border: 1px solid var(--dorado); margin-bottom: 10px; color: var(--plateado); backdrop-filter: blur(5px); }
+        .tasa-bcv b { color: var(--dorado); }
+
+        /* === 6. BOTONES ORIGINALES (LINKTREE) === */
+        .btn {
+            width: 100%;
+            background-color: var(--btn-fondo-base);
+            color: var(--color-texto);
+            border: none; padding: 18px 22px;
+            border-radius: var(--borde-radio);
+            font-family: inherit; font-size: 14px; font-weight: 600;
+            letter-spacing: 1px; text-transform: uppercase; text-decoration: none;
+            display: flex; align-items: center; justify-content: space-between;
+            cursor: pointer; transition: all 0.3s ease; position: relative;
+            backdrop-filter: blur(10px);
             background-image: linear-gradient(var(--btn-fondo-base), var(--btn-fondo-base)), 
                               linear-gradient(135deg, var(--azul-rey) 0%, rgba(37, 99, 235, 0.2) 50%, var(--dorado) 100%);
             background-origin: border-box; background-clip: padding-box, border-box;
-            border: 1px solid transparent; margin-bottom: 12px;
+            border: 1px solid transparent; box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
         }
-        .btn-sede.activo .flecha { transform: rotate(180deg); }
-        .flecha { transition: transform 0.3s; }
+        .btn:hover { transform: translateY(-2px); box-shadow: 0 8px 25px rgba(37, 99, 235, 0.25); }
+        .btn-content { display: flex; align-items: center; gap: 12px; }
+        .btn-content i { font-size: 18px; width: 20px; text-align: center; }
+        .flecha-toggle { transition: transform 0.3s ease; }
+        .btn.activo .flecha-toggle { transform: rotate(180deg); }
 
-        .desplegable { max-height: 0; overflow: hidden; transition: max-height 0.6s ease; opacity: 0; }
-        .desplegable.abierto { max-height: 3000px; opacity: 1; margin-bottom: 20px; }
+        /* Estilos específicos de botones secundarios (Original) */
+        .btn-sub { padding: 14px 18px; font-size: 13px; text-transform: none; font-weight: 500; background-image: linear-gradient(var(--btn-fondo-base), var(--btn-fondo-base)), linear-gradient(135deg, rgba(37, 99, 235, 0.5) 0%, transparent 100%); margin-bottom: 10px; }
+        .btn-sub.dorado { background-image: linear-gradient(var(--btn-fondo-base), var(--btn-fondo-base)), linear-gradient(135deg, rgba(212, 175, 55, 0.5) 0%, transparent 100%); }
+        .btn-sub.mayorista { background-image: linear-gradient(var(--btn-fondo-base), var(--btn-fondo-base)), linear-gradient(135deg, rgba(255, 255, 255, 0.3) 0%, transparent 100%); }
 
-        /* === BUSCADOR Y CATEGORIAS === */
-        .search-card { background: rgba(0, 0, 0, 0.7); padding: 20px; border-radius: 12px; border: 1px solid var(--glass-border); }
-        .cat-nav { display: flex; align-items: center; gap: 5px; margin-bottom: 15px; }
-        .cats-scroll { display: flex; gap: 8px; overflow-x: auto; scrollbar-width: none; flex-grow: 1; }
-        .cats-scroll::-webkit-scrollbar { display: none; }
-        .cat-pill { background: rgba(255,255,255,0.1); padding: 6px 12px; border-radius: 20px; font-size: 10px; white-space: nowrap; cursor: pointer; }
-        .cat-pill.activo { background: var(--dorado); color: black; font-weight: bold; }
-
-        #inputBusqueda { width: 100%; padding: 12px; border-radius: 8px; border: 1px solid var(--dorado); background: rgba(0,0,0,0.4); color: white; outline: none; }
-
-        .results-box { max-height: 400px; overflow-y: auto; margin-top: 15px; }
-        .item-card { background: rgba(255,255,255,0.05); border-radius: 8px; padding: 12px; margin-bottom: 8px; display: flex; justify-content: space-between; align-items: center; border-left: 4px solid var(--dorado); }
+        /* Contenedores Desplegables Originales */
+        .info-sede-wrapper { max-height: 0; overflow: hidden; transition: max-height 0.4s ease, opacity 0.4s ease; opacity: 0; width: 90%; margin: 0 auto; display: flex; flex-direction: column; gap: 8px; }
+        .info-sede-wrapper.abierto { max-height: 1500px; opacity: 1; margin-top: 5px; margin-bottom: 15px; }
         
-        /* === CARRITO === */
-        #cart-floating { position: fixed; bottom: 30px; right: 20px; background: #25D366; width: 60px; height: 60px; border-radius: 50%; display: none; align-items: center; justify-content: center; border: 2px solid white; z-index: 1000; box-shadow: 0 5px 15px rgba(0,0,0,0.5); }
-        .cart-badge { position: absolute; top: 0; right: 0; background: red; color: white; border-radius: 50%; width: 22px; height: 22px; font-size: 11px; display: flex; align-items: center; justify-content: center; font-weight: bold; }
-        
-        #modal-cart { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.98); z-index: 2000; display: none; flex-direction: column; padding: 20px; }
-        
-        /* === VUELTO === */
-        .vuelto-container { background: rgba(255,255,255,0.05); padding: 15px; border-radius: 10px; margin: 15px 0; border: 1px solid var(--dorado); text-align: center; }
-        .vuelto-input { width: 80%; background: transparent; border: none; border-bottom: 2px solid var(--dorado); color: white; font-size: 20px; text-align: center; outline: none; }
+        /* Botones Internos de Acción (MAPS, WA, etc.) */
+        .btn-accion { background-color: rgba(255, 255, 255, 0.05); color: var(--color-texto-mutado); text-decoration: none; padding: 12px 15px; border-radius: 8px; font-size: 12px; font-weight: 500; display: flex; align-items: center; gap: 10px; border: 1px solid rgba(255, 255, 255, 0.1); transition: all 0.2s ease; cursor: pointer; width: 100%; font-family: inherit; justify-content: center; }
+        .btn-accion:hover { background-color: rgba(255,255,255,0.1); color: white; }
 
-        /* === HORARIOS === */
-        .estado-tag { padding: 4px 10px; border-radius: 4px; font-size: 10px; font-weight: bold; margin-bottom: 10px; display: inline-block; }
-        .tag-abierto { background: rgba(37,211,102,0.2); color: #25D366; }
-        .tag-cerrado { background: rgba(234,67,53,0.2); color: #ea4335; }
+        /* Estados Originales */
+        .estado-indicador { margin-bottom: 10px; padding: 6px; border-radius: 4px; font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; text-align: center; }
+        .estado-abierto { background-color: rgba(37, 211, 102, 0.1); color: #25D366; border: 1px solid rgba(37, 211, 102, 0.3); }
+        .estado-cerrado { background-color: rgba(234, 67, 53, 0.1); color: #ea4335; border: 1px solid rgba(234, 67, 53, 0.3); }
+        
+        .horario-texto { max-height: 0; overflow: hidden; transition: max-height 0.3s ease, padding 0.3s ease, opacity 0.3s ease; opacity: 0; background-color: rgba(0, 0, 0, 0.3); border-radius: 6px; font-size: 11px; color: #e2e8f0; text-align: center; padding: 0 10px; line-height: 1.6; }
+        .horario-texto.abierto { max-height: 200px; opacity: 1; padding: 12px 10px; border: 1px solid rgba(255, 255, 255, 0.05); margin-bottom: 5px; }
+        .dia-resalte { color: var(--dorado); font-weight: 600; }
 
-        footer { margin-top: auto; padding: 20px; text-align: center; font-size: 11px; color: var(--color-texto-mutado); }
+        /* === 7. BUSCADOR INTELIGENTE EN CIUDAD CATADOR === */
+        .search-container { background: rgba(0, 0, 0, 0.5); padding: 15px; border-radius: 12px; border: 1px solid rgba(255, 255, 255, 0.1); backdrop-filter: blur(5px); margin-bottom: 10px; }
+        
+        /* Navegador de Categorías con Flechas */
+        .cat-nav { display: flex; align-items: center; gap: 8px; margin-bottom: 15px; }
+        .cat-arrow { background: rgba(0,0,0,0.5); border: 1px solid var(--dorado); color: var(--dorado); width: 30px; height: 30px; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; }
+        .cats-grid { display: flex; gap: 8px; overflow-x: auto; scroll-behavior: smooth; scrollbar-width: none; flex-grow: 1; }
+        .cats-grid::-webkit-scrollbar { display: none; }
+        .cat-tag { background: rgba(255, 255, 255, 0.1); border: 1px solid rgba(255, 255, 255, 0.2); padding: 7px 15px; border-radius: 20px; font-size: 10px; cursor: pointer; transition: 0.3s; color: var(--plateado); font-weight: 600; text-transform: uppercase; white-space: nowrap; }
+        .cat-tag.active { background: var(--dorado); color: black; border-color: var(--dorado); }
+
+        #inputBusqueda { width: 100%; padding: 12px 12px 12px 40px; border-radius: 8px; border: 1px solid var(--dorado); background: rgba(255, 255, 255, 0.05); color: white; font-family: inherit; outline: none; }
+        .search-wrap { position: relative; margin-bottom: 10px; }
+        .search-wrap i { position: absolute; left: 15px; top: 50%; transform: translateY(-50%); color: var(--dorado); }
+
+        .resultados-wrapper { max-height: 350px; overflow-y: auto; overflow-x: hidden; padding-right: 5px; }
+        .resultado-card { background: rgba(255, 255, 255, 0.05); border-radius: 8px; padding: 12px; margin-top: 8px; border-left: 4px solid var(--dorado); display: flex; justify-content: space-between; align-items: center; }
+        .res-info { flex-grow: 1; }
+        .res-nombre { font-size: 12px; font-weight: 600; display: block; line-height: 1.3; margin-bottom: 3px; }
+        .res-precio { color: var(--dorado); font-weight: 700; font-size: 14px; }
+        .res-stock { font-size: 10px; color: var(--color-texto-mutado); display: block; }
+        .btn-add { background: var(--dorado); color: black; border: none; padding: 8px 12px; border-radius: 6px; font-size: 12px; font-weight: 700; cursor: pointer; transition: 0.2s; }
+        .btn-add:active { transform: scale(0.9); }
+
+        /* === 8. CARRITO FLOTANTE Y MODAL E-COMMERCE === */
+        #cart-floating { position: fixed; bottom: 30px; right: 20px; background: #25D366; width: 65px; height: 65px; border-radius: 50%; display: none; align-items: center; justify-content: center; box-shadow: 0 5px 20px rgba(0,0,0,0.5); z-index: 1000; cursor: pointer; border: 2px solid white; }
+        #cart-count { position: absolute; top: 0; right: 0; background: red; color: white; border-radius: 50%; width: 24px; height: 24px; font-size: 12px; display: flex; align-items: center; justify-content: center; font-weight: bold; border: 2px solid white; }
+
+        #modal-cart { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.95); z-index: 2000; display: none; flex-direction: column; padding: 25px; }
+        .cart-list { flex-grow: 1; overflow-y: auto; }
+        
+        .vuelto-box { background: rgba(255,255,255,0.05); padding: 15px; border-radius: 10px; margin-top: 15px; border: 1px solid var(--dorado); text-align: center; }
+        .vuelto-input { width: 100%; background: transparent; border: none; border-bottom: 1px solid var(--dorado); color: white; padding: 10px; text-align: center; font-size: 18px; outline: none; margin-bottom: 5px; font-family: inherit; }
+
+        /* === 9. INSTAGRAM Y FOOTER === */
+        .insta-footer { text-align: center; margin-top: 10px; }
+        .insta-btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%); color: white; padding: 15px; border-radius: 12px; text-decoration: none; font-weight: bold; font-size: 13px; width: 100%; }
+
+        footer { margin-top: auto; padding-top: 30px; width: 100%; text-align: center; }
+        .reloj-vivo { display: inline-block; background-color: rgba(0, 0, 0, 0.5); padding: 12px 25px; border-radius: 30px; border: 1px solid rgba(255, 255, 255, 0.08); backdrop-filter: blur(8px); font-size: 12px; color: var(--color-texto-mutado); }
+        .reloj-hora { color: var(--dorado); font-weight: 600; font-size: 13px; margin-left: 5px; }
     </style>
 </head>
 <body>
 
     <div id="age-gate">
         <div class="age-box">
-            <h2 style="color:var(--dorado)">EL CATADOR</h2>
-            <p style="margin: 15px 0; font-size: 14px;">¿Eres mayor de 18 años?</p>
-            <div style="display: flex; gap: 10px; justify-content: center;">
-                <button onclick="accessReady()" class="btn-sede" style="width: 80px; padding: 10px; margin: 0;">SÍ</button>
-                <button onclick="window.location.href='https://google.com'" class="btn-sede" style="width: 80px; padding: 10px; margin: 0; background: #666;">NO</button>
+            <img src="logo.png" width="80" style="margin-bottom: 15px; border-radius: 50%;">
+            <h2 style="color:var(--dorado)">BIENVENIDO</h2>
+            <p style="font-size: 13px; margin: 15px 0;">Debes tener al menos 18 años para entrar al Gran Catador.</p>
+            <div style="display:flex; gap: 15px; justify-content: center;">
+                <button onclick="document.getElementById('age-gate').style.display='none'" class="btn" style="width: auto; padding: 10px 30px; margin:0;">SÍ</button>
+                <button onclick="window.location.href='https://google.com'" class="btn" style="width: auto; padding: 10px 30px; margin:0; background: #666; background-image:none; border:none;">NO</button>
             </div>
         </div>
     </div>
 
-    <audio id="pop-sound" src="https://assets.mixkit.co/active_storage/sfx/2571/2571-preview.mp3"></audio>
+    <audio id="sound-pop" src="https://assets.mixkit.co/active_storage/sfx/2571/2571-preview.mp3" preload="auto"></audio>
 
-    <main id="content-main">
-        <div class="top-bar">
-            <div class="btn-theme" onclick="toggleDarkMode()"><i class="fa-solid fa-moon"></i> MODO OSCURO</div>
-            <div id="reloj-mini" style="font-weight: bold;">00:00:00</div>
-        </div>
-
-        <header style="text-align: center; margin-bottom: 20px;">
-            <img src="logo.png" class="logo" style="width: 120px; border-radius: 50%;">
-            <h1 style="letter-spacing: 2px;">EL CATADOR</h1>
-            <p style="color:var(--dorado); font-size: 10px; font-weight: bold;">BARINAS, VENEZUELA</p>
-        </header>
-
-        <div class="dashboard">
-            <div>Tasa BCV: <b id="tasa-val" style="color:var(--dorado)">...</b></div>
-            <div id="status-general">---</div>
-        </div>
-
-        <button class="btn-sede" onclick="openSede('sede-gc', this)">
-            <span><i class="fa-solid fa-crown"></i> GRAN CATADOR (CIUDAD CATADOR)</span>
-            <i class="fa-solid fa-chevron-down flecha"></i>
-        </button>
-        <div id="sede-gc" class="desplegable">
-            <div class="search-card">
-                <div class="cat-nav">
-                    <div class="cats-scroll" id="cats-scroll">
-                        <span class="cat-pill activo" onclick="filtrarCat('TODOS', this)">Todos</span>
-                    </div>
-                </div>
-                <input type="text" id="inputBusqueda" placeholder="Buscar producto...">
-                <div id="results-box" class="results-box">
-                    <p style="text-align:center; padding: 20px; font-size: 11px;">Cargando inventario...</p>
-                </div>
-                <div style="margin-top:15px; border-top: 1px solid rgba(255,255,255,0.1); padding-top:10px;">
-                    <div id="estadoCiudad" class="estado-tag"></div>
-                    <a href="https://wa.me/584245496366" class="btn-sede" style="padding:10px; font-size:11px;">WhatsApp Ventas</a>
-                </div>
-            </div>
-        </div>
-
-        <button class="btn-sede" onclick="openSede('sede-bod', this)">
-            <span><i class="fa-solid fa-store"></i> BODEGÓN DEL CATADOR</span>
-            <i class="fa-solid fa-chevron-down flecha"></i>
-        </button>
-        <div id="sede-bod" class="desplegable">
-            <div class="search-card" style="text-align:center;">
-                <div id="estadoCuatri" class="estado-tag"></div>
-                <p style="font-size: 11px;">Lunes a Sábados: 10:00 AM - 10:00 PM</p>
-                <a href="https://wa.me/584245496366" class="btn-sede" style="padding:10px; font-size:11px; margin-top:10px;">Consultar WhatsApp</a>
-            </div>
+    <div id="modal-cart">
+        <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid var(--dorado); padding-bottom: 15px; margin-bottom: 15px;">
+            <h2 style="color:var(--dorado); text-transform: uppercase;">Tu Pedido</h2>
+            <i class="fa-solid fa-xmark" onclick="document.getElementById('modal-cart').style.display='none'" style="font-size: 28px; cursor: pointer;"></i>
         </div>
         
-        <div style="text-align: center; margin-top: 20px;">
-            <a href="https://instagram.com/grancatador" target="_blank" style="color: #E1306C; text-decoration: none; font-weight: bold; font-size: 13px;">
-                <i class="fa-brands fa-instagram"></i> SÍGUENOS EN INSTAGRAM
+        <div id="lista-carrito" class="cart-list"></div>
+        
+        <div class="vuelto-box">
+            <p style="font-size: 10px; color: var(--dorado); font-weight: bold; letter-spacing: 1px;">¿PAGAS CON EFECTIVO DIVISAS?</p>
+            <input type="number" id="montoPago" class="vuelto-input" placeholder="Ej: $20.00" oninput="calcularVuelto()">
+            <div id="res-vuelto" style="font-size: 13px; font-weight: bold; color: #25D366; margin-top: 5px;"></div>
+        </div>
+
+        <div style="background: rgba(255,255,255,0.05); padding: 20px; border-radius: 12px; text-align: right; margin-top: 15px;">
+            <div style="font-size: 18px;">Total USD: <b id="cart-total-usd" style="color:var(--dorado)">$0.00</b></div>
+            <div style="font-size: 13px; color: var(--color-texto-mutado); margin-bottom: 15px;">Total estimado: <span id="cart-total-bs" style="color:white">0.00 Bs</span></div>
+            <button id="btn-wa-enviar" onclick="enviarPedidoWA()" style="width: 100%; background: #25D366; color: white; border: none; padding: 15px; border-radius: 8px; font-weight: bold; font-size: 14px; cursor: pointer;">
+                <i class="fa-brands fa-whatsapp"></i> ENVIAR PEDIDO
+            </button>
+        </div>
+    </div>
+
+    <div id="cart-floating" onclick="document.getElementById('modal-cart').style.display='flex'">
+        <i class="fa-solid fa-cart-shopping" style="color: white; font-size: 24px;"></i>
+        <div id="cart-count">0</div>
+    </div>
+
+    <main>
+        <div class="top-controls">
+            <button class="btn-theme" onclick="document.body.classList.toggle('dark-mode')"><i class="fa-solid fa-moon"></i> Oscuro</button>
+            <div id="reloj-mini" style="font-size: 12px; font-weight: 700; color: var(--plateado);">00:00 AM</div>
+        </div>
+
+        <header>
+            <img src="logo.png" alt="Gran Catador Logo" class="logo">
+            <h1>El Catador</h1>
+            <p class="ubicacion"><i class="fa-solid fa-location-dot"></i> Barinas, Venezuela</p>
+            <div class="tasa-bcv" style="margin-top: 10px;">Tasa oficial BCV: <b id="tasaValor">Cargando...</b></div>
+        </header>
+
+        <button class="btn" id="btnPrincipalSedes" onclick="toggleMenu('btnPrincipalSedes', 'menuPrincipalSedes')">
+            <div class="btn-content"><i class="fa-solid fa-map" style="color: var(--azul-rey);"></i><span>Nuestras Sedes</span></div>
+            <i class="fa-solid fa-chevron-down flecha-toggle"></i>
+        </button>
+
+        <div class="desplegable" id="menuPrincipalSedes" style="width: 100%;">
+            
+            <button class="btn btn-sub" id="btnCiudadCatador" onclick="toggleMenu('btnCiudadCatador', 'infoCiudadCatador')">
+                <div class="btn-content"><i class="fa-solid fa-store" style="color: var(--azul-rey);"></i><span>Sede Ciudad Catador</span></div>
+                <i class="fa-solid fa-chevron-down flecha-toggle"></i>
+            </button>
+            <div class="info-sede-wrapper" id="infoCiudadCatador">
+                
+                <div class="search-container">
+                    <p style="font-size: 11px; color: var(--dorado); text-align: center; margin-bottom: 10px; font-weight: bold;">PRECIOS E INVENTARIO EN VIVO</p>
+                    <div class="cat-nav">
+                        <div class="cat-arrow" onclick="document.getElementById('gridCategorias').scrollBy({left:-100, behavior:'smooth'})"><i class="fa-solid fa-chevron-left"></i></div>
+                        <div id="gridCategorias" class="cats-grid"><span class="cat-tag active" onclick="filtrar('TODOS', this)">Todos</span></div>
+                        <div class="cat-arrow" onclick="document.getElementById('gridCategorias').scrollBy({left:100, behavior:'smooth'})"><i class="fa-solid fa-chevron-right"></i></div>
+                    </div>
+                    <div class="search-wrap">
+                        <i class="fa-solid fa-magnifying-glass"></i>
+                        <input type="text" id="inputBusqueda" placeholder="Ej: Polar, Cacique, Agua...">
+                    </div>
+                    <div id="contenedorResultados" class="resultados-wrapper">
+                        <p style="text-align:center; font-size:11px; padding:20px; color:var(--color-texto-mutado);">Cargando base de datos...</p>
+                    </div>
+                </div>
+
+                <div id="estadoCiudad" class="estado-indicador"></div>
+                <a href="https://www.google.com/maps/place/Gran+Catador/data=!4m2!3m1!1s0x0:0x93d268a3afb51527?sa=X&ved=1t:2428&ictx=111" target="_blank" class="btn-accion"><i class="fa-solid fa-map-location-dot" style="color: #ea4335;"></i> Ver en Maps</a>
+                <a href="tel:+584245496366" class="btn-accion"><i class="fa-solid fa-phone" style="color: #34a853;"></i> 0424-5496366</a>
+                <a href="https://wa.me/584245496366" target="_blank" class="btn-accion" style="background: rgba(37, 211, 102, 0.1); color: #25D366; border-color: #25D366;"><i class="fa-brands fa-whatsapp"></i> Chat Directo Ventas</a>
+                <button class="btn-accion" onclick="toggleMenu('btnHorarioCiudad', 'horarioCiudad')"><i class="fa-regular fa-clock" style="color: #fbbc05;"></i> Horarios</button>
+                <div class="horario-texto" id="horarioCiudad"><span class="dia-resalte">Lunes a Domingos:</span> 08:00 am - 09:00 pm</div>
+            </div>
+
+            <button class="btn btn-sub dorado" id="btnCuatricentenaria" onclick="toggleMenu('btnCuatricentenaria', 'infoCuatricentenaria')">
+                <div class="btn-content"><i class="fa-solid fa-store" style="color: var(--dorado);"></i><span>Sede Cuatricentenaria</span></div>
+                <i class="fa-solid fa-chevron-down flecha-toggle"></i>
+            </button>
+            <div class="info-sede-wrapper" id="infoCuatricentenaria">
+                <div id="estadoCuatri" class="estado-indicador"></div>
+                <a href="https://wa.me/584240000000" target="_blank" class="btn-accion"><i class="fa-brands fa-whatsapp" style="color: #25D366;"></i> WhatsApp Sede</a>
+                <button class="btn-accion" onclick="toggleMenu('btnHorarioCuatri', 'horarioCuatri')"><i class="fa-regular fa-clock" style="color: #fbbc05;"></i> Horarios</button>
+                <div class="horario-texto" id="horarioCuatri"><span class="dia-resalte">Lunes a Sábados:</span> 10:00 am - 10:00 pm</div>
+            </div>
+
+            <button class="btn btn-sub mayorista" id="btnVentasMayor" onclick="toggleMenu('btnVentasMayor', 'infoVentasMayor')">
+                <div class="btn-content"><i class="fa-solid fa-boxes-stacked" style="color: var(--plateado);"></i><span>Ventas al Mayor</span></div>
+                <i class="fa-solid fa-chevron-down flecha-toggle"></i>
+            </button>
+            <div class="info-sede-wrapper" id="infoVentasMayor">
+                <div id="estadoMayor" class="estado-indicador"></div>
+                <p style="font-size: 11px; text-align: center; color: var(--color-texto-mutado); margin-bottom: 5px;">Atención a comercios y licorerías.</p>
+                <a href="https://wa.me/584120000000" target="_blank" class="btn-accion"><i class="fa-brands fa-whatsapp" style="color: #25D366;"></i> WhatsApp Mayor</a>
+                <button class="btn-accion" onclick="toggleMenu('btnHorarioMayor', 'horarioMayor')"><i class="fa-regular fa-clock" style="color: #fbbc05;"></i> Horarios</button>
+                <div class="horario-texto" id="horarioMayor"><span class="dia-resalte">Lunes a Viernes:</span> 08:00 am - 05:00 pm<br>Sábados: 08:00 am - 12:00 pm</div>
+            </div>
+            
+        </div>
+
+        <div class="insta-footer">
+            <a href="https://instagram.com/grancatador" target="_blank" class="insta-btn">
+                <i class="fa-brands fa-instagram" style="font-size: 18px;"></i> SÍGUENOS EN INSTAGRAM
             </a>
         </div>
     </main>
 
-    <div id="modal-cart">
-        <div style="display: flex; justify-content: space-between; align-items: center;">
-            <h2 style="color:var(--dorado)">Pedido</h2>
-            <i class="fa-solid fa-xmark" onclick="closeCart()" style="font-size: 28px; cursor: pointer;"></i>
-        </div>
-        <div id="cart-list" style="flex-grow: 1; overflow-y: auto; padding: 15px 0;"></div>
-        
-        <div class="vuelto-container">
-            <p style="font-size: 10px; color: var(--dorado); margin-bottom: 5px;">PAGO EN DIVISAS ($)</p>
-            <input type="number" id="pagoDivisa" class="vuelto-input" placeholder="0.00" oninput="doVuelto()">
-            <p id="vuelto-res" style="font-size: 13px; margin-top: 10px; color: #25D366; font-weight: bold;"></p>
-        </div>
-
-        <div style="background: rgba(255,255,255,0.1); padding: 15px; border-radius: 10px; text-align: right;">
-            <div style="font-size: 18px;">Total: <b id="total-usd" style="color:var(--dorado)">$0.00</b></div>
-            <div style="font-size: 13px; opacity: 0.7;" id="total-bs">0.00 Bs</div>
-            <button id="btnWA" onclick="sendWA()" style="width: 100%; background: #25D366; color: white; border: none; padding: 15px; border-radius: 8px; font-weight: bold; margin-top: 10px;">ENVIAR PEDIDO</button>
-        </div>
-    </div>
-
-    <div id="cart-floating" onclick="openCart()">
-        <i class="fa-solid fa-cart-shopping" style="color: white; font-size: 22px;"></i>
-        <div class="cart-badge" id="cart-badge-count">0</div>
-    </div>
-
-    <footer><div id="reloj-footer">Barinas, Venezuela</div></footer>
+    <footer>
+        <div class="reloj-vivo" id="contenedorReloj">Cargando fecha...</div>
+    </footer>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.0/papaparse.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.6.2"></script>
 
     <script>
-        // === LÓGICA DE ACCESO ===
-        function accessReady() { document.getElementById('age-gate').style.display = 'none'; }
-        function toggleDarkMode() { document.body.classList.toggle('dark-mode'); }
+        // === 1. LÓGICA DE MENÚS (ORIGINAL RESPALDO) ===
+        function toggleMenu(btnId, menuId) {
+            const btn = document.getElementById(btnId);
+            const menu = document.getElementById(menuId);
+            if(btn && menu) {
+                btn.classList.toggle('activo');
+                menu.classList.toggle('abierto');
+            }
+        }
 
-        // === INVENTARIO ===
-        let inventory = []; let fuse; let cart = {}; let tasaBcv = 45.30; let currentTotal = 0; let isAbierto = true;
+        // === 2. LÓGICA DE HORARIOS Y ESTADOS (ORIGINAL RESPALDO) ===
+        const horarioSedes = { 0:{abre:8,cierra:21}, 1:{abre:8,cierra:21}, 2:{abre:8,cierra:21}, 3:{abre:8,cierra:21}, 4:{abre:8,cierra:21}, 5:{abre:8,cierra:21}, 6:{abre:8,cierra:21} };
+        const horarioSede = { 0:{abre:0,cierra:0}, 1:{abre:10,cierra:22}, 2:{abre:10,cierra:22}, 3:{abre:10,cierra:22}, 4:{abre:10,cierra:22}, 5:{abre:10,cierra:22}, 6:{abre:10,cierra:22} };
+        const horarioVentasMayor = { 0:{abre:0,cierra:0}, 1:{abre:8,cierra:17}, 2:{abre:8,cierra:17}, 3:{abre:8,cierra:17}, 4:{abre:8,cierra:17}, 5:{abre:8,cierra:17}, 6:{abre:8,cierra:12} };
 
-        async function initData() {
+        let tiendaAbierta = true; // Variable para el carrito
+
+        function comprobarEstado(h, id) {
+            const n = new Date(); const d = n.getDay(); const hr = n.getHours() + (n.getMinutes()/60);
+            const hoy = h[d]; const ab = hoy && hr >= hoy.abre && hr < hoy.cierra;
+            const el = document.getElementById(id);
+            if(el) { 
+                el.innerHTML = ab ? '🟢 ABIERTO AHORA' : '🔴 CERRADO'; 
+                el.className = 'estado-indicador ' + (ab ? 'estado-abierto' : 'estado-cerrado'); 
+            }
+            return ab;
+        }
+
+        function actualizarReloj() {
+            const ahora = new Date();
+            const opcionesFecha = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+            let fechaTexto = ahora.toLocaleDateString('es-VE', opcionesFecha);
+            fechaTexto = fechaTexto.charAt(0).toUpperCase() + fechaTexto.slice(1);
+
+            let horas = ahora.getHours();
+            let minutos = ahora.getMinutes();
+            let segundos = ahora.getSeconds();
+            const ampm = horas >= 12 ? 'PM' : 'AM';
+            
+            horas = horas % 12;
+            horas = horas ? horas : 12; 
+            minutos = minutos < 10 ? '0' + minutos : minutos;
+            segundos = segundos < 10 ? '0' + segundos : segundos;
+            
+            const horaTexto = horas + ':' + minutos + ':' + segundos + ' ' + ampm;
+
+            document.getElementById('contenedorReloj').innerHTML = `${fechaTexto} | <span class="reloj-hora">${horaTexto}</span>`;
+            document.getElementById('reloj-mini').innerText = horaTexto;
+            
+            const ab1 = comprobarEstado(horarioSedes, 'estadoCiudad');
+            comprobarEstado(horarioSede, 'estadoCuatri');
+            comprobarEstado(horarioVentasMayor, 'estadoMayor');
+
+            // Actualizar botón de WhatsApp del Carrito si está cerrado
+            tiendaAbierta = ab1;
+            const btnWA = document.getElementById('btn-wa-enviar');
+            if(!tiendaAbierta) {
+                btnWA.innerHTML = "TIENDA CERRADA";
+                btnWA.style.background = "#555";
+            } else {
+                btnWA.innerHTML = "<i class='fa-brands fa-whatsapp'></i> ENVIAR PEDIDO";
+                btnWA.style.background = "#25D366";
+            }
+        }
+
+        // === 3. INVENTARIO FOXDATA Y BÚSQUEDA ===
+        let inventario = []; let fuse; let carrito = {}; let tasaOficial = 45.10; let totalCarrito = 0;
+
+        async function cargarDatos() {
+            try {
+                // Tasa BCV Dinámica
+                const resTasa = await fetch('https://ve.dolarapi.com/v1/dolares/oficial');
+                const dataTasa = await resTasa.json();
+                tasaOficial = dataTasa.promedio;
+                document.getElementById('tasaValor').innerText = tasaOficial + " Bs";
+            } catch(e) { document.getElementById('tasaValor').innerText = "45.10 Bs (Fijada)"; }
+
             try {
                 const fetchCSV = (u) => new Promise(res => Papa.parse(u, { download: true, encoding: "latin-1", complete: (r) => res(r.data) }));
                 const [pRaw, sRaw] = await Promise.all([
@@ -242,126 +392,152 @@
 
                 let mapa = {};
                 pRaw.forEach(r => {
-                    if(r.length >= 5) {
+                    if (r.length >= 5) {
                         let cod = r[r.length-4]?.trim();
                         let usd = r[r.length-1]?.trim();
-                        if(cod && !isNaN(cod) && usd?.includes(',')) {
-                            mapa[cod] = { n: r[r.length-3].trim(), cat: r[r.length-5].trim(), ps: usd, pn: parseFloat(usd.replace('.','').replace(',','.')) };
+                        if (cod && !isNaN(cod) && usd?.includes(',')) {
+                            // Extra: Si el nombre tiene "CAJA" o "BTO", lo marcamos visualmente luego
+                            mapa[cod] = { 
+                                Nombre: r[r.length-3]?.trim(), 
+                                Cat: r[r.length-5]?.trim() || "Otros", 
+                                PrecioStr: usd,
+                                PrecioNum: parseFloat(usd.replace('.','').replace(',','.'))
+                            };
                         }
                     }
                 });
-                sRaw.forEach(r => { let i = r.indexOf("Existencia"); if(i !== -1 && mapa[r[i+2]?.trim()]) mapa[r[i+2].trim()].st = r[i+8].trim(); });
-                
-                inventory = Object.values(mapa);
-                
-                // Categorias
-                const cats = [...new Set(inventory.map(p => p.cat))].filter(c => c);
-                const cont = document.getElementById('cats-scroll');
-                cats.forEach(c => {
-                    const s = document.createElement('span'); s.className = 'cat-pill'; s.innerText = c;
-                    s.onclick = () => { document.querySelectorAll('.cat-pill').forEach(x => x.classList.remove('activo')); s.classList.add('activo'); render(inventory.filter(p => p.cat === c)); };
-                    cont.appendChild(s);
+
+                sRaw.forEach(r => {
+                    let i = r.indexOf("Existencia");
+                    if (i !== -1 && r.length > i + 8) {
+                        let cod = r[i+2]?.trim();
+                        if (mapa[cod]) mapa[cod].Stock = r[i+8]?.trim();
+                    }
                 });
 
-                fuse = new Fuse(inventory, { keys: ['n'], threshold: 0.3 });
-                document.getElementById('results-box').innerHTML = '<p style="text-align:center; font-size: 11px; color: var(--dorado);">Sincronizado. Busca tu producto.</p>';
+                inventario = Object.values(mapa).filter(p => p.Nombre).map(p => ({ ...p, Stock: p.Stock || "0,00" }));
+                
+                // Generar Categorías
+                const categorias = [...new Set(inventario.map(p => p.Cat))].filter(c => c);
+                const grid = document.getElementById('gridCategorias');
+                categorias.forEach(c => {
+                    const span = document.createElement('span'); span.className = 'cat-tag'; span.innerText = c;
+                    span.onclick = () => filtrar(c, span);
+                    grid.appendChild(span);
+                });
 
-                const tRes = await fetch('https://ve.dolarapi.com/v1/dolares/oficial');
-                const tData = await tRes.json(); tasaBcv = tData.promedio;
-                document.getElementById('tasa-val').innerText = tasaBcv + " Bs";
-            } catch(e) { document.getElementById('tasa-val').innerText = "45.30 Bs"; }
+                fuse = new Fuse(inventario, { keys: ['Nombre'], threshold: 0.35 });
+                document.getElementById('contenedorResultados').innerHTML = '<p style="text-align:center; font-size:11px; padding:20px; color:var(--dorado)">Inventario listo. Puedes buscar.</p>';
+
+            } catch (e) { console.error("Error CSV", e); }
         }
 
-        function render(l) {
-            const b = document.getElementById('results-box'); b.innerHTML = "";
-            l.slice(0, 20).forEach(p => {
-                const d = document.createElement('div'); d.className = 'item-card';
-                d.innerHTML = `<div style="max-width:70%"><b>${p.n}</b><span>$${p.ps}</span><br><small>Stock: ${p.st || '0,00'}</small></div><button class="btn-plus" onclick="addItem('${p.n}','${p.ps}',${p.pn})">+</button>`;
-                b.appendChild(d);
+        // Filtros y Render
+        function filtrar(cat, el) {
+            document.querySelectorAll('.cat-tag').forEach(t => t.classList.remove('active'));
+            el.classList.add('active');
+            document.getElementById('inputBusqueda').value = "";
+            const lista = cat === 'TODOS' ? [] : inventario.filter(p => p.Cat === cat);
+            renderizar(lista);
+        }
+
+        document.getElementById('inputBusqueda').addEventListener('input', (e) => {
+            const val = e.target.value;
+            if(val.length < 2) return;
+            document.querySelectorAll('.cat-tag').forEach(t => t.classList.remove('active'));
+            renderizar(fuse.search(val).slice(0, 15).map(r => r.item));
+        });
+
+        function renderizar(lista) {
+            const cont = document.getElementById('contenedorResultados');
+            cont.innerHTML = lista.length ? "" : "<p style='text-align:center;font-size:11px;padding:20px;'>No se encontraron resultados.</p>";
+            lista.forEach(p => {
+                const esCaja = p.Nombre.includes('CAJA') || p.Nombre.includes('BTO');
+                const badgeExtra = esCaja ? `<small style="background:#ea4335;color:white;padding:2px 5px;border-radius:3px;font-size:8px;">VENTA AL MAYOR</small>` : `<small>Disponibilidad: ${p.Stock}</small>`;
+                
+                const d = document.createElement('div'); d.className = 'resultado-card';
+                d.innerHTML = `
+                    <div class="res-info">
+                        <span class="res-nombre">${p.Nombre}</span>
+                        <span class="res-precio">$${p.PrecioStr}</span>
+                        <div style="margin-top:2px;">${badgeExtra}</div>
+                    </div>
+                    <button class="btn-add" onclick="agregarAlCarrito('${p.Nombre}', '${p.PrecioStr}', ${p.PrecioNum})">+</button>
+                `;
+                cont.appendChild(d);
             });
         }
 
-        function addItem(n, ps, pn) {
-            if(!isAbierto) return alert("Tienda Cerrada.");
-            document.getElementById('pop-sound').play();
-            if(cart[n]) cart[n].c++; else cart[n] = { ps, pn, c: 1 };
-            updateCart();
+        // === 4. LÓGICA DEL CARRITO Y VUELTO ===
+        function agregarAlCarrito(nombre, pStr, pNum) {
+            if(!tiendaAbierta) return alert("Estamos cerrados. Procesaremos pedidos en nuestro horario laboral.");
+            
+            // Efecto de Sonido
+            try { document.getElementById('sound-pop').play(); } catch(e){}
+
+            if(carrito[nombre]) carrito[nombre].cant++;
+            else carrito[nombre] = { pStr, pNum, cant: 1 };
+            actualizarUI();
         }
 
-        function updateCart() {
-            let tc = 0; currentTotal = 0; const list = document.getElementById('cart-list'); list.innerHTML = "";
-            for (let n in cart) {
-                let i = cart[n]; tc += i.c; currentTotal += (i.pn * i.c);
-                list.innerHTML += `<div class="item-card"><div><b>${n}</b><br><small>$${i.ps}</small></div><div style="display:flex;align-items:center;gap:10px;"><button class="btn-plus" style="width:28px;height:28px" onclick="changeQty('${n}',-1)">-</button><span>${i.c}</span><button class="btn-plus" style="width:28px;height:28px" onclick="changeQty('${n}',1)">+</button></div></div>`;
+        function modificarCant(nombre, delta) {
+            carrito[nombre].cant += delta;
+            if(carrito[nombre].cant <= 0) delete carrito[nombre];
+            actualizarUI();
+        }
+
+        function actualizarUI() {
+            let tItems = 0; totalCarrito = 0;
+            const lista = document.getElementById('lista-carrito'); lista.innerHTML = "";
+            
+            for(let n in carrito) {
+                let i = carrito[n]; tItems += i.cant; totalCarrito += (i.pNum * i.cant);
+                lista.innerHTML += `
+                    <div class="resultado-card" style="margin-top:0; margin-bottom:8px;">
+                        <div style="max-width:60%"><b>${n}</b><br><small style="color:var(--dorado)">$${i.pStr}</small></div>
+                        <div style="display:flex; align-items:center; gap:10px;">
+                            <button class="btn-add" style="padding:5px 10px; font-size:14px;" onclick="modificarCant('${n}', -1)">-</button>
+                            <span style="font-weight:bold; font-size:14px; width:15px; text-align:center;">${i.cant}</span>
+                            <button class="btn-add" style="padding:5px 10px; font-size:14px;" onclick="modificarCant('${n}', 1)">+</button>
+                        </div>
+                    </div>
+                `;
             }
-            document.getElementById('cart-badge-count').innerText = tc;
-            document.getElementById('cart-floating').style.display = tc > 0 ? 'flex' : 'none';
-            document.getElementById('total-usd').innerText = `$${currentTotal.toFixed(2)}`;
-            document.getElementById('total-bs').innerText = (currentTotal * tasaBcv).toLocaleString('es-VE') + " Bs";
-            doVuelto();
+
+            document.getElementById('cart-count').innerText = tItems;
+            document.getElementById('cart-floating').style.display = tItems > 0 ? 'flex' : 'none';
+            document.getElementById('cart-total-usd').innerText = `$${totalCarrito.toFixed(2)}`;
+            document.getElementById('cart-total-bs').innerText = (totalCarrito * tasaOficial).toLocaleString('es-VE') + " Bs";
+            calcularVuelto();
         }
 
-        function changeQty(n, d) { cart[n].c += d; if(cart[n].c <= 0) delete cart[n]; updateCart(); }
-        function openCart() { document.getElementById('modal-cart').style.display = 'flex'; }
-        function closeCart() { document.getElementById('modal-cart').style.display = 'none'; }
-
-        function doVuelto() {
-            const pago = parseFloat(document.getElementById('pagoDivisa').value) || 0;
-            const res = document.getElementById('vuelto-res');
-            if(pago > currentTotal && currentTotal > 0) {
-                const v = pago - currentTotal;
-                res.innerHTML = `VUELTO: $${v.toFixed(2)} (${(v * tasaBcv).toLocaleString('es-VE')} Bs)`;
-            } else res.innerHTML = "";
+        function calcularVuelto() {
+            const pago = parseFloat(document.getElementById('montoPago').value) || 0;
+            const res = document.getElementById('res-vuelto');
+            if(pago > totalCarrito && totalCarrito > 0) {
+                let v = pago - totalCarrito;
+                res.innerHTML = `Su vuelto: $${v.toFixed(2)} / ${(v * tasaOficial).toLocaleString('es-VE')} Bs`;
+            } else { res.innerHTML = ""; }
         }
 
-        function sendWA() {
-            let m = "Hola Gran Catador! 👋 Pedido Ciudad Catador:%0A%0A";
-            for(let n in cart) m += `• *${cart[n].c}x* ${n} ($${cart[n].ps})%0A`;
-            m += `%0A*TOTAL:* $${currentTotal.toFixed(2)} (Tasa: ${tasaBcv})`;
-            window.open(`https://wa.me/584245496366?text=${m}`, '_blank');
+        function enviarPedidoWA() {
+            if(!tiendaAbierta) return alert("La tienda está cerrada en este momento.");
+            let msg = "Hola Gran Catador! 👋 Quisiera este pedido de Ciudad Catador:%0A%0A";
+            for(let n in carrito) msg += `• *${carrito[n].cant}x* ${n} ($${carrito[n].pStr})%0A`;
+            
+            const pago = parseFloat(document.getElementById('montoPago').value) || 0;
+            if(pago > totalCarrito) msg += `%0A💵 _Pagaré con un billete de $${pago}_`;
+
+            msg += `%0A%0A*TOTAL:* $${totalCarrito.toFixed(2)} (Tasa BCV: ${tasaOficial})`;
+            window.open(`https://wa.me/584245496366?text=${msg}`, '_blank');
         }
 
-        function openSede(id, btn) {
-            const el = document.getElementById(id); const isOpen = el.classList.contains('abierto');
-            document.querySelectorAll('.desplegable').forEach(d => d.classList.remove('abierto'));
-            document.querySelectorAll('.btn-sede').forEach(x => x.classList.remove('activo'));
-            if(!isOpen) { el.classList.add('abierto'); btn.classList.add('activo'); }
-        }
-
-        document.getElementById('inputBusqueda').oninput = (e) => {
-            const v = e.target.value; if(v.length < 2) return;
-            render(fuse.search(v).slice(0, 20).map(r => r.item));
+        // Iniciar
+        window.onload = function() {
+            actualizarReloj();
+            setInterval(actualizarReloj, 1000);
+            cargarDatos();
         };
-
-        // === RELOJ Y HORARIOS ===
-        const hSedes = { 0:{a:8,c:21}, 1:{a:8,c:21}, 2:{a:8,c:21}, 3:{a:8,c:21}, 4:{a:8,c:21}, 5:{a:8,c:21}, 6:{a:8,c:21} };
-        const hSede = { 0:{a:0,c:0}, 1:{a:10,c:22}, 2:{a:10,c:22}, 3:{a:10,c:22}, 4:{a:10,c:22}, 5:{a:10,c:22}, 6:{a:10,c:22} };
-
-        function updateTime() {
-            const n = new Date(); const d = n.getDay(); const hr = n.getHours() + (n.getMinutes()/60);
-            const horaStr = n.toLocaleTimeString('es-VE', { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: true });
-            document.getElementById('reloj-mini').innerText = horaStr;
-            document.getElementById('reloj-footer').innerText = n.toLocaleDateString('es-VE', { weekday: 'long', day: 'numeric', month: 'long' }) + " | " + horaStr;
-            
-            // Estados
-            const ab1 = hSedes[d] && hr >= hSedes[d].a && hr < hSedes[d].c;
-            const ab2 = hSede[d] && hr >= hSede[d].a && hr < hSede[d].c;
-            
-            isAbierto = ab1;
-            document.getElementById('status-general').innerHTML = ab1 ? "🟢 ABIERTO" : "🔴 CERRADO";
-            document.getElementById('estadoCiudad').innerHTML = ab1 ? "ABIERTO" : "CERRADO";
-            document.getElementById('estadoCiudad').className = "estado-tag " + (ab1 ? "tag-abierto" : "tag-cerrado");
-            document.getElementById('estadoCuatri').innerHTML = ab2 ? "ABIERTO" : "CERRADO";
-            document.getElementById('estadoCuatri').className = "estado-tag " + (ab2 ? "tag-abierto" : "tag-cerrado");
-            
-            const btn = document.getElementById('btnWA');
-            if(!isAbierto) { btn.innerHTML = "TIENDA CERRADA"; btn.style.background = "#555"; }
-            else { btn.innerHTML = "ENVIAR PEDIDO"; btn.style.background = "#25D366"; }
-        }
-
-        window.onload = () => { initData(); updateTime(); setInterval(updateTime, 1000); };
     </script>
-</body>
-</html>
 </body>
 </html>
